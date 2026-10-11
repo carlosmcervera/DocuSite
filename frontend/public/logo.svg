@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="44" viewBox="0 0 180 44">
+  <rect x="0" y="6" width="32" height="32" rx="9" fill="#0A2342"/>
+  <path d="M10 13.5h7.2L22 18v11.5a1 1 0 0 1-1 1H11a1 1 0 0 1-1-1V14.5a1 1 0 0 1 0-1Z" fill="#FFFFFF"/>
+  <path d="M16 18c-1.9 0-3.4 1.5-3.4 3.4 0 2.4 3.4 5.4 3.4 5.4s3.4-3 3.4-5.4c0-1.9-1.5-3.4-3.4-3.4Z" fill="#FF7A00"/>
+  <circle cx="16" cy="21.4" r="1.15" fill="#FFFFFF"/>
+  <text x="42" y="29" font-family="Space Grotesk, Arial, sans-serif" font-size="20" font-weight="700" fill="#0A2342">DocuSite</text>
+</svg>

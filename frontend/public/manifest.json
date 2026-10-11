@@ -1,0 +1,16 @@
+{
+  "short_name": "DocuSite",
+  "name": "DocuSite — Documentación de obra con IA",
+  "description": "Redacta tus actas e informes de obra con IA desde el móvil y el escritorio.",
+  "icons": [
+    {
+      "src": "/assets/brand/logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#17243F",
+  "background_color": "#F4F3EE"
+}
