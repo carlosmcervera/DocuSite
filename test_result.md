@@ -102,9 +102,9 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "DocuSite: marca del usuario, portada corta y páginas ES/EN; oferta aprobada primeros 3 documentos gratis; ejemplo autorizado y formulario conectado a admin"
+user_problem_statement: "DocuSite document SEO for Spain/English plus email-gated template interest on home and five document pages; files not provided, optional unchecked marketing permission"
 backend:
-  - task: "Captura, contexto de oferta/documento, admin y CSV"
+  - task: "Real template requests, consent audit, admin filters and filtered CSV"
     implemented: true
     working: true
     file: "/app/backend/server.py"
@@ -114,26 +114,23 @@ backend:
     status_history:
       - working: true
         agent: testing
-        comment: "iteration_1: 25/25 API tests passed. Report incorrectly says rate limiting tested; suite explicitly skipped that optional test. No application bugs found."
+        comment: "Iteration7 confirms23/23 enhanced +57/57 comprehensive. Separate optional marketing persisted, strict validation, filters/CSV match. Earlier429 failures were test fixture IP collisions, fixed without weakening app limits."
 frontend:
-  - task: "Self-serve app CTAs, verified-phone/email trial, secondary contact routes"
+  - task: "28 initial-HTML routes, ten localized document guides and template forms"
     implemented: true
     working: true
-    file: "/app/frontend/src/components/AppAccess.jsx"
+    file: "/app/frontend/src/prerender.jsx"
     stuck_count: 0
     priority: high
     needs_retesting: false
     status_history:
       - working: true
         agent: testing
-        comment: "Previous brand/routing/lead phase passed iteration1/2; portable tests25/25 and mobile360."
-      - working: "NA"
-        agent: main
-        comment: "New user pivot implemented: primary register/AppStore/GooglePlay ALL intentionally placeholders (empty appLinks config). Honest dialog, no account/download/network. First3docs requires BOTH phone and email validation IN APP. Home no form. Exact3steps company/unlimitedmembers -> project -> Nuevo Documento/type/photos. Contact form now ONLY secondary inquiry, /es/contacto & /en/contact with old/demo redirects, plan_interest null unless paid context; utm.intent=contact, NOT offerfree. Full yarn build and desktop screenshots passed."
+        comment: "All28route metadata/rawHTML passediteration6; mobile360390 nooverflow. Iteration7 confirms browserESphotosoptout/ENcompletionoptin persisted, noJSguidevisible. Checkboxdata-testids existed allalong; correctRadixRootselector resolved false testissue."
 metadata:
   created_by: main_agent
-  version: "4.0"
-  test_sequence: 4
+  version: "7.0"
+  test_sequence: 7
   run_ui: true
 test_plan:
   current_focus: []
@@ -142,6 +139,4 @@ test_plan:
   test_priority: high_first
 agent_communication:
   - agent: main
-    message: "FINAL: Read iteration_3 and iteration_4 completely and reviewed updated backend_test.py. Iteration4 resolves test-fixture rate-limit interference and incorrect zero-hours wording: zero valid gives0, blank invalid givesdash. 42/42 backend tests, mobile360/390, nested dialogs and all28 routes passed; no remaining application bugs reported. New home/standaloneROI defaults10docs,1.5h,45EUR/h =15h/675EUR; supplied real badge images rendered, destinations intentionally MOCKED. Final yarn build and Python compile passed. PRD updated. Email deferred."
-  - agent: main
-    message: "Test newest selfserve conversion pivot. All3appbuttons intentionally MOCKED by user; no need integrate auth/stores. Contact remains real. Backend unchanged. Keep API testfiles portable: no hardcoded URLs/tokens, no bareexcept/no secret logging. Clean ONLY your TEST_ records. Final lint py_compile/ruffcheck before handoff."
+    message: "Final reports5/6/7read, test scripts reviewed. Removedtemporaryverify_and_cleanup.py. Realtemplatecapture works; actualtemplatesandemails intentionallyunavailable. App/storelinks stillMOCKED. No knownappbug. Build/Pythoncompile/gitdiffcheckpassed. PRDupdated. Do not re-add hardcodedtokens/testbareexcept; useenv + freshreservedIP perPOST fixture, cleanonlytestIDs."

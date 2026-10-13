@@ -14,6 +14,11 @@ export async function createLead(payload) {
   return data;
 }
 
+export async function requestTemplate(payload) {
+  const { data } = await api.post("/download-requests", payload);
+  return data;
+}
+
 // ---- Admin ----
 export function adminHeaders(token) {
   return { headers: { "X-Admin-Token": token } };
@@ -29,10 +34,8 @@ export async function fetchStats(token) {
   return data;
 }
 
-export async function fetchLeads(token, { search = "", status = "" } = {}) {
-  const params = {};
-  if (search) params.search = search;
-  if (status) params.status = status;
+export async function fetchLeads(token, filters = {}) {
+  const params = Object.fromEntries(Object.entries(filters).filter(([,value]) => value !== "" && value !== undefined));
   const { data } = await api.get("/admin/leads", {
     ...adminHeaders(token),
     params,

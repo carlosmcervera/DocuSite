@@ -1,242 +1,255 @@
 {
   "brand_context": {
     "product": "DocuObra / DocuSite marketing site",
-    "audience": ["AEC offices", "site engineers", "project managers"],
-    "tone": "Alex Hormozi-style: direct, outcome-first, numbers-forward, minimal fluff",
+    "app_type": "marketing_site",
+    "audience": ["AEC offices (Spain)", "site engineers", "project managers"],
+    "tone": "Direct, outcome-first, credible (no exaggerated promises)",
     "primary_conversion": [
-      "Register / start free 3 docs (requires phone + email verification in-app)",
-      "App Store / Google Play badges (MOCKED links; show honest placeholder dialog)"
+      "Lead magnet: 'Descárgate tu Acta' (email gate + document choice)",
+      "Secondary: Register / start free 3 docs (in-app)",
+      "Secondary: App Store / Google Play badges (MOCKED links; honest dialog)"
     ],
     "constraints": {
-      "tech": "React (CRA) + Tailwind + shadcn/ui (JS files) + FastAPI",
-      "pages": "Keep existing 14 logical / 28 localized pages; add ROI content to Home; keep standalone ES/EN ROI route",
-      "no_fake_claims": "Show savings as estimated labor time value; not guaranteed cash savings; review still required",
-      "palette_to_preserve": ["#17243F", "#E39B1B", "#F4F3EE"],
-      "fonts_to_preserve": "Cabinet Grotesk (headings) + Satoshi (body), local"
+      "tech": "React (CRA) + Tailwind + shadcn/ui (JS files) + FastAPI + Mongo",
+      "preserve_approved_branding": {
+        "colors": {
+          "navy": "#17243F",
+          "amber": "#E39B1B",
+          "bg": "#F4F3EE",
+          "text": "#141B2B",
+          "muted": "#5D6270",
+          "border": "#E0DED6"
+        },
+        "fonts": "Cabinet Grotesk (headings) + Satoshi (body)"
+      },
+      "no_new_images": true,
+      "no_fake_claims": "No #1 guarantee. No fake download promises. If COMING SOON, say so.",
+      "routes": "Keep existing 28 localized routes incl. docs pages (5 docs × 2 langs) + home + ROI route",
+      "roi_placement": "ROI block stays immediately after hero on Home (preserve existing ROI + app buttons).",
+      "email_capture": "Captured emails must be REAL and visible in admin; include consent audit fields (version/date).",
+      "store_urls": "App store/register URLs are deliberately MOCKED; keep honest messaging."
     }
   },
-  "design_tokens": {
-    "css_custom_properties": {
-      ":root": {
-        "--bg": "#F4F3EE",
-        "--surface": "#FFFFFF",
-        "--ink": "#0E1628",
-        "--muted": "#5B6476",
-        "--navy": "#17243F",
-        "--amber": "#E39B1B",
-        "--amber-weak": "#F6E7C6",
-        "--border": "rgba(23,36,63,0.14)",
-        "--ring": "rgba(227,155,27,0.45)",
-        "--shadow-sm": "0 1px 2px rgba(16,24,40,0.06)",
-        "--shadow-md": "0 10px 30px rgba(23,36,63,0.12)",
-        "--radius-sm": "10px",
-        "--radius-md": "16px",
-        "--radius-lg": "22px"
-      }
-    },
-    "typography": {
-      "fonts": {
-        "heading": "Cabinet Grotesk, system-ui",
-        "body": "Satoshi, system-ui"
-      },
-      "scale_tailwind": {
-        "h1": "text-4xl sm:text-5xl lg:text-6xl font-[650] tracking-tight",
-        "h2": "text-base md:text-lg text-[color:var(--muted)]",
-        "section_title": "text-2xl sm:text-3xl font-[650] tracking-tight",
-        "body": "text-sm sm:text-base text-[color:var(--ink)]",
-        "small": "text-xs text-[color:var(--muted)]"
-      }
-    },
-    "spacing": {
-      "section_padding": "py-12 sm:py-16",
-      "container": "max-w-6xl mx-auto px-4 sm:px-6",
-      "card_padding": "p-4 sm:p-6",
-      "gap": "gap-4 sm:gap-6"
-    }
-  },
-  "layout_and_homepage": {
-    "home_priority": "ROI block must appear immediately after hero (above testimonials/features).",
-    "grid": {
-      "roi_block": "Mobile: single column; Desktop: 2 columns (inputs left, results right). Use `grid grid-cols-1 lg:grid-cols-12` with left `lg:col-span-5` and right `lg:col-span-7`."
-    },
-    "roi_visual_style": {
-      "inputs_panel": "Surface card on warm background: `bg-white border border-[color:var(--border)] rounded-[var(--radius-md)] shadow-[var(--shadow-sm)]`",
-      "results_panel": "Brand navy panel with high contrast: `bg-[color:var(--navy)] text-white rounded-[var(--radius-md)] shadow-[var(--shadow-md)]`",
-      "money_value": "Large number in amber: `text-4xl sm:text-5xl font-[750] text-[color:var(--amber)] leading-none`",
-      "estimated_tag": "Small pill near value: `inline-flex items-center rounded-full bg-white/10 px-2 py-1 text-[11px] tracking-wide uppercase` with label 'Estimado'/'Estimated'"
-    },
-    "copy_rules": {
-      "headline": "Outcome-first: 'Ahorra ~1,5h por acta' / 'Save ~1.5h per report'.",
-      "supporting": "List the manual steps briefly (download photos, frame, transcribe notes, format, check previous minutes, review, email for signatures).",
-      "caveat": "Always show: 'Valor de tiempo estimado. No es ahorro garantizado en caja. Revisión humana sigue siendo necesaria.'"
-    }
-  },
-  "roi_calculator_spec": {
-    "assumptions_defaults": {
-      "documents_per_month": 10,
-      "time_saved_hours_per_document": 1.5,
-      "hourly_cost_eur": 45,
-      "optional_plan_price_eur": 79
-    },
-    "inputs": [
-      {
-        "key": "documentsPerMonth",
-        "label": "Documentos/mes",
-        "type": "number",
-        "min": 1,
-        "step": 1,
-        "data_testid": "roi-documents-per-month-input"
-      },
-      {
-        "key": "hoursSavedPerDoc",
-        "label": "Horas ahorradas por documento",
-        "type": "number",
-        "min": 0,
-        "step": 0.25,
-        "data_testid": "roi-hours-saved-per-doc-input"
-      },
-      {
-        "key": "hourlyCost",
-        "label": "Coste hora (€/h)",
-        "type": "number",
-        "min": 0,
-        "step": 1,
-        "data_testid": "roi-hourly-cost-input"
-      }
+
+  "seo_content_system_for_document_pages": {
+    "goal": "Optimize each document page for Spain SEO intent + conversion to lead magnet without changing approved visual brand.",
+    "page_template_sections_order": [
+      "1) Hero (H1 + 1-sentence value + primary CTA anchor)",
+      "2) Inline lead magnet form (anchored target) — compact",
+      "3) What you’ll get (bullets) + who it’s for",
+      "4) Step-by-step: how to obtain / fill / common pitfalls (Spain context)",
+      "5) FAQ (accordion) with readable anchors",
+      "6) Related documents (internal links)",
+      "7) Trust + next step (app CTA + ROI reference)"
     ],
-    "outputs": {
-      "hours_saved_month": {
-        "formula": "documentsPerMonth * hoursSavedPerDoc",
-        "data_testid": "roi-hours-saved-month-value"
-      },
-      "gross_labor_value": {
-        "formula": "hours_saved_month * hourlyCost",
-        "data_testid": "roi-gross-labor-value-month-value"
-      },
-      "net_after_plan_optional": {
-        "formula": "gross_labor_value - optional_plan_price_eur",
-        "label": "Valor restante estimado (si plan 79€)",
-        "data_testid": "roi-net-after-plan-value"
-      }
+    "copy_rules": {
+      "language": "User choice: keep English UI where already English; but document pages should be localized ES/EN per route. Avoid legal overreach.",
+      "headings": "Exactly one H1 per page. Use H2/H3 for scannability. Use short paragraphs + lists.",
+      "anchors": "Add in-page anchor links near top: #descargar #como-conseguir #errores-frecuentes #faq #documentos-relacionados",
+      "spain_legal_context": "Use conservative phrasing: 'En España, normalmente…', 'Puede variar por municipio/CCAA…'. Do not invent official requirements.",
+      "no_promises": "If download is not available yet, label CTA as 'Recíbelo por email (próximamente)' and show COMING SOON state."
     },
-    "default_example_callout": {
-      "copy": "Ejemplo: 10 docs/mes × 1,5h = 15h → 675€/mes (valor de tiempo). Si plan 79€ → ~596€ valor restante.",
-      "data_testid": "roi-default-example-callout"
-    },
-    "ui_notes": {
-      "no_graphs": "No rainbow charts; keep it compact, numeric, and credible.",
-      "formula_disclosure": "Add a small 'Cómo lo calculamos' accordion with the formulas and assumptions.",
-      "same_component": "Use same ROI component in Home (compact) and /roi route (full with more explanation)."
+    "on_page_seo_checklist": {
+      "meta_title": "Format: '{Documento} en España: guía + descarga | DocuObra' (≤ ~60 chars)",
+      "meta_description": "Format: 'Qué es, cuándo se usa y cómo conseguirlo. Descárgalo (te lo enviamos por email). Guía práctica para obra.' (≤ ~155 chars)",
+      "url": "Keep existing localized slugs; ensure canonical per locale.",
+      "structured_data": [
+        "FAQPage JSON-LD for FAQ section",
+        "BreadcrumbList JSON-LD for docs hierarchy"
+      ],
+      "internal_linking": "Each doc page links to 3–6 related docs + ROI + pricing + home. Use descriptive anchor text.",
+      "content_depth": "Include: definition, when used, who signs, where to request, typical fields, common errors, FAQ.",
+      "performance": "Prefer text + existing assets; avoid heavy new media. Ensure headings render server/initial HTML where possible in CRA (no blocking spinners)."
     }
   },
-  "components_and_paths": {
-    "shadcn_primary": [
-      {
-        "name": "Button",
-        "path": "/app/frontend/src/components/ui/button.js",
-        "usage": "Primary CTA + secondary ghost"
+
+  "lead_magnet_download_flow": {
+    "placement_rules": {
+      "home": "Add a compact lead magnet block either (A) directly after ROI block or (B) within existing Docs area as a compact inline card. Do NOT add a huge new section.",
+      "document_pages": "Add top CTA 'Descárgate tu acta' that scrolls to inline form. Also show the same CTA as a sticky-in-card button inside the hero on mobile.",
+      "cta_anchor_id": "download-acta"
+    },
+    "form_requirements": {
+      "fields": [
+        {
+          "key": "email",
+          "type": "email",
+          "label_es": "Correo electrónico",
+          "label_en": "Email",
+          "required": true,
+          "data_testid": "leadmagnet-email-input"
+        },
+        {
+          "key": "documentType",
+          "type": "select",
+          "label_es": "Tipo de documento",
+          "label_en": "Document type",
+          "required": true,
+          "behavior": "On doc pages: preselect current document and lock (read-only display). On home: selectable.",
+          "data_testid": "leadmagnet-document-type-select"
+        },
+        {
+          "key": "processingConsent",
+          "type": "checkbox",
+          "label_es": "He leído y acepto que tratéis mi correo para enviarme el documento solicitado.",
+          "label_en": "I agree you may process my email to send me the requested document.",
+          "required": true,
+          "data_testid": "leadmagnet-processing-consent-checkbox"
+        },
+        {
+          "key": "marketingOptIn",
+          "type": "checkbox",
+          "label_es": "(Opcional) Quiero recibir novedades y recursos por email.",
+          "label_en": "(Optional) I want to receive updates and resources by email.",
+          "required": false,
+          "default": "unchecked",
+          "data_testid": "leadmagnet-marketing-optin-checkbox"
+        }
+      ],
+      "submit": {
+        "label_es": "Solicitar descarga",
+        "label_en": "Request download",
+        "data_testid": "leadmagnet-submit-button"
       },
-      {
-        "name": "Card",
-        "path": "/app/frontend/src/components/ui/card.js",
-        "usage": "ROI panels, feature blocks"
+      "states": {
+        "coming_soon": {
+          "rule": "If actual download/email delivery is not implemented, the submit must NOT pretend to send a file. It should store the request and show: 'Solicitud recibida. Te avisaremos cuando esté disponible.'",
+          "data_testid": "leadmagnet-coming-soon-state"
+        },
+        "success": {
+          "copy_es": "Solicitud recibida. Revisa tu correo cuando esté disponible. (Sin spam; puedes darte de baja si marcaste marketing.)",
+          "copy_en": "Request received. Check your email when it becomes available.",
+          "data_testid": "leadmagnet-success-message"
+        },
+        "error": {
+          "copy_es": "No se pudo enviar la solicitud. Inténtalo de nuevo.",
+          "copy_en": "Could not submit request. Please try again.",
+          "data_testid": "leadmagnet-error-message"
+        }
       },
-      {
-        "name": "Input",
-        "path": "/app/frontend/src/components/ui/input.js",
-        "usage": "ROI numeric inputs"
-      },
-      {
-        "name": "Label",
-        "path": "/app/frontend/src/components/ui/label.js",
-        "usage": "Form labels"
-      },
-      {
-        "name": "Separator",
-        "path": "/app/frontend/src/components/ui/separator.js",
-        "usage": "Divide sections inside results panel"
-      },
-      {
-        "name": "Accordion",
-        "path": "/app/frontend/src/components/ui/accordion.js",
-        "usage": "How we calculate + caveats"
-      },
-      {
-        "name": "Dialog",
-        "path": "/app/frontend/src/components/ui/dialog.js",
-        "usage": "MOCKED store links + registration info"
-      },
-      {
-        "name": "Badge",
-        "path": "/app/frontend/src/components/ui/badge.js",
-        "usage": "Estimado tag + 'Sin compromiso'"
+      "inline_privacy_notice": {
+        "rule": "Keep conservative; do not invent legal entity. Use DocuSite contact info only.",
+        "copy_es": "Usaremos tu correo solo para gestionar esta solicitud. Responsable: DocuSite. Contacto: info@projectum.es. Puedes ejercer tus derechos solicitándolo por email. Consulta la política de privacidad.",
+        "copy_en": "We’ll use your email only to handle this request. Controller: DocuSite. Contact: info@projectum.es. You can exercise your rights by emailing us. See privacy policy.",
+        "data_testid": "leadmagnet-privacy-inline"
       }
+    },
+    "backend_data_to_persist": {
+      "collection": "lead_magnet_requests",
+      "fields": [
+        "email",
+        "documentType",
+        "locale",
+        "sourcePath",
+        "processingConsent: true",
+        "marketingOptIn: boolean",
+        "consentVersion: string (e.g., 'v1')",
+        "consentTimestamp: ISO string",
+        "userAgent (optional)",
+        "ip (optional, if collected; be transparent)",
+        "status: 'requested'|'fulfilled'|'rejected'"
+      ],
+      "admin": {
+        "must_be_real": true,
+        "filters": ["documentType", "marketingOptIn", "date range", "locale"],
+        "export": "CSV export including consentVersion + consentTimestamp",
+        "data_testid": {
+          "table": "admin-leadmagnet-requests-table",
+          "export": "admin-leadmagnet-export-csv-button"
+        }
+      }
+    }
+  },
+
+  "ui_components_and_paths": {
+    "shadcn_components_to_use": [
+      { "name": "Button", "path": "/app/frontend/src/components/ui/button.jsx" },
+      { "name": "Card", "path": "/app/frontend/src/components/ui/card.jsx" },
+      { "name": "Input", "path": "/app/frontend/src/components/ui/input.jsx" },
+      { "name": "Label", "path": "/app/frontend/src/components/ui/label.jsx" },
+      { "name": "Select", "path": "/app/frontend/src/components/ui/select.jsx" },
+      { "name": "Checkbox", "path": "/app/frontend/src/components/ui/checkbox.jsx" },
+      { "name": "Accordion", "path": "/app/frontend/src/components/ui/accordion.jsx" },
+      { "name": "Alert", "path": "/app/frontend/src/components/ui/alert.jsx" },
+      { "name": "Badge", "path": "/app/frontend/src/components/ui/badge.jsx" },
+      { "name": "Breadcrumb", "path": "/app/frontend/src/components/ui/breadcrumb.jsx" },
+      { "name": "Separator", "path": "/app/frontend/src/components/ui/separator.jsx" },
+      { "name": "Sonner", "path": "/app/frontend/src/components/ui/sonner.jsx" }
     ],
     "custom_components_to_create_js": [
       {
-        "name": "RoiCalculator",
-        "path": "/app/frontend/src/components/RoiCalculator.js",
-        "notes": "Accept props: variant ('compact'|'full'), locale ('es'|'en'), optionalPlanPrice=79."
+        "name": "LeadMagnetInlineForm",
+        "path": "/app/frontend/src/components/LeadMagnetInlineForm.js",
+        "notes": "Props: locale, documentType (optional), lockedDocumentType (bool), variant ('compact'|'full'), onSubmitted. Must include data-testid on all interactive elements."
       },
       {
-        "name": "StoreBadges",
-        "path": "/app/frontend/src/components/StoreBadges.js",
-        "notes": "Render provided badge images; open Dialog explaining links are MOCKED placeholders."
+        "name": "DocumentSeoFAQ",
+        "path": "/app/frontend/src/components/DocumentSeoFAQ.js",
+        "notes": "Renders FAQ accordion + emits FAQPage JSON-LD."
       }
     ]
   },
-  "store_badges": {
-    "rule_override": "User-approved: use exact provided badge images (not generic icons). Links must be MOCKED and explicitly labeled.",
-    "image_urls": [
-      {
-        "category": "app-store-badge",
-        "description": "Official App Store badge provided by user",
-        "url": "https://customer-assets-4nw71qhi.emergentagent.net/job_docuobra/artifacts/4042815f1cf531ed_image.webp"
-      },
-      {
-        "category": "google-play-badge",
-        "description": "Official Google Play badge provided by user",
-        "url": "https://customer-assets-4nw71qhi.emergentagent.net/job_docuobra/artifacts/4f35d2db35e2cd43_image.png"
-      }
-    ],
-    "rendering": {
-      "crop_padding": "If badges include outer padding/checkerboard, wrap in `overflow-hidden rounded-lg bg-white` and set `object-contain` with fixed height (h-12 sm:h-14). If needed, apply CSS `clip-path: inset(6% round 10px)` on the <img> to trim transparent edges without distorting art.",
-      "layout": "Place under hero CTA row and again inside ROI block footer as trust cue."
+
+  "visual_rules_preserve_brand": {
+    "palette_usage": {
+      "background": "Use warm paper bg (#F4F3EE) for page background.",
+      "surfaces": "Cards are white with border #E0DED6.",
+      "primary_cta": "Amber fill (#E39B1B) with navy text (#17243F).",
+      "links": "Navy text with underline on hover; avoid bright blue defaults.",
+      "no_new_tokens": "Do not introduce new global tokens overriding existing index.css HSL tokens."
     },
-    "data_testids": {
-      "app_store": "store-badge-app-store",
-      "google_play": "store-badge-google-play",
-      "mock_dialog_trigger": "store-badge-mocked-dialog-trigger"
-    }
-  },
-  "buttons_and_interactions": {
-    "button_styles": {
-      "primary": "bg-[color:var(--amber)] text-[color:var(--navy)] hover:bg-[#d88f12] focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] rounded-xl px-5 py-3",
-      "secondary": "bg-white text-[color:var(--navy)] border border-[color:var(--border)] hover:bg-[color:var(--amber-weak)] rounded-xl px-5 py-3",
-      "ghost": "bg-transparent text-white/90 hover:bg-white/10 rounded-xl"
+    "typography": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-heading tracking-tight",
+      "h2": "text-base md:text-lg text-muted-foreground",
+      "body": "text-sm sm:text-base text-foreground",
+      "doc_page_readability": "Max width for long text: `max-w-3xl` inside container; use `leading-relaxed` for paragraphs."
+    },
+    "buttons": {
+      "keep_existing_app_buttons": true,
+      "primary": "Use existing brand-button sizing; Tailwind: `brand-button bg-[color:var(--accent)] text-[color:var(--accent-foreground)] hover:bg-[hsl(var(--accent)/0.92)] transition-colors duration-200 active:scale-[0.98]`",
+      "secondary": "`brand-button bg-white border border-border text-foreground hover:bg-secondary transition-colors duration-200`"
     },
     "micro_interactions": [
-      "Buttons: `transition-colors duration-200` only (no `transition-all`). Add active press `active:scale-[0.98]`.",
-      "Cards: subtle hover lift on desktop only: `hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] transition-[box-shadow,transform] duration-200`.",
-      "ROI value: animate number change with lightweight count-up (optional) but keep it subtle; respect prefers-reduced-motion."
+      "Anchor CTA scroll: smooth scroll already enabled; ensure anchor target has scroll-margin-top.",
+      "Form submit: show loading state (Button disabled + spinner) and toast via Sonner.",
+      "Cards: `transition-[box-shadow,transform] duration-200` + subtle lift on hover (desktop only)."
     ]
   },
-  "accessibility_and_testing": {
-    "a11y": [
-      "WCAG AA contrast: navy text on amber is OK; avoid amber text on white for body copy.",
-      "All inputs have <Label htmlFor>.",
-      "Focus states: visible ring using `--ring`.",
-      "Respect `prefers-reduced-motion` for any count-up/entrance animations."
+
+  "testing_and_accessibility": {
+    "data_testid_policy": "All interactive + key informational elements MUST include data-testid (kebab-case, role-based).",
+    "required_testids": [
+      "document-hero-download-cta",
+      "document-download-form",
+      "leadmagnet-email-input",
+      "leadmagnet-document-type-select",
+      "leadmagnet-processing-consent-checkbox",
+      "leadmagnet-marketing-optin-checkbox",
+      "leadmagnet-submit-button",
+      "leadmagnet-success-message",
+      "leadmagnet-error-message"
     ],
-    "data_testid_policy": "Every interactive + key informational element must include `data-testid` in kebab-case (role-based). Examples: `data-testid=\"roi-calculate-button\"`, `data-testid=\"roi-gross-labor-value-month-value\"`, `data-testid=\"home-hero-primary-cta\"`."
+    "a11y": [
+      "Checkbox labels must be clickable and clearly indicate required vs optional.",
+      "Do not rely on color alone for errors; show text + Alert.",
+      "Focus-visible ring must be present on inputs/buttons."
+    ]
   },
+
+  "image_urls": {
+    "rule": "No new images requested; keep existing phone/app screenshot and sample viewer assets unchanged.",
+    "categories": []
+  },
+
   "instructions_to_main_agent": [
-    "Update Home: insert ROI section immediately after hero; keep copy short and numbers prominent.",
-    "Keep standalone /es/roi and /en/roi route; reuse same RoiCalculator component with variant prop.",
-    "Use provided App Store / Google Play badge images; links are MOCKED and must open an honest Dialog (no fake redirects).",
-    "Default ROI: 10 docs/mo, 1.5h saved/doc, 45€/h. Show 15h and 675€/mo prominently; optional comparison: 675-79=596€ labeled as estimated remaining value.",
-    "No claims of guaranteed savings; include caveat + 'review still required'.",
-    "Implement in .js (not .tsx). Use shadcn components from `/app/frontend/src/components/ui/` only for inputs/dialog/accordion/etc."
+    "Preserve ALL approved branding, ROI block placement, and existing app buttons/badges behavior (MOCKED store URLs remain honest).",
+    "Implement a compact lead magnet form on Home (after ROI or within Docs area) and on each document page (anchored by top CTA 'Descárgate tu acta').",
+    "Form must require processing consent checkbox + optional marketing opt-in unchecked by default; persist consentVersion + consentTimestamp.",
+    "No fake download: if delivery not implemented, store request and show COMING SOON messaging; do not email a file.",
+    "Add doc-specific SEO content structure: definition, steps, common errors, Spain context FAQ, related docs, internal links; add FAQPage + Breadcrumb JSON-LD.",
+    "Ensure better initial HTML: render headings and key copy without waiting for client-only effects; avoid content hidden behind spinners.",
+    "Admin must show captured emails as REAL data with filters and CSV export including consent fields."
   ],
+
   "general_ui_ux_design_guidelines_appendix": "<General UI UX Design Guidelines>  \n    - You must **not** apply universal transition. Eg: `transition: all`. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms\n    - You must **not** center align the app container, ie do not add `.App { text-align: center; }` in the css file. This disrupts the human natural reading flow of text\n   - NEVER: use AI assistant Emoji characters like`🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons. Always use **FontAwesome cdn** or **lucid-react** library already installed in the package.json\n\n **GRADIENT RESTRICTION RULE**\nNEVER use dark/saturated gradient combos (e.g., purple/pink) on any UI element.  Prohibited gradients: blue-500 to purple 600, purple 500 to pink-500, green-500 to blue-500, red to pink etc\nNEVER use dark gradients for logo, testimonial, footer etc\nNEVER let gradients cover more than 20% of the viewport.\nNEVER apply gradients to text-heavy content or reading areas.\nNEVER use gradients on small UI elements (<100px width).\nNEVER stack multiple gradient layers in the same viewport.\n\n**ENFORCEMENT RULE:**\n    • Id gradient area exceeds 20% of viewport OR affects readability, **THEN** use solid colors\n\n**How and where to use:**\n   • Section backgrounds (not content backgrounds)\n   • Hero section header content. Eg: dark to light to dark color\n   • Decorative overlays and accent elements only\n   • Hero section with 2-3 mild color\n   • Gradients creation can be done for any angle say horizontal, vertical or diagonal\n\n- For AI chat, voice application, **do not use purple color. Use color like light green, ocean blue, peach orange etc**\n\n</Font Guidelines>\n\n- Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead. \n   \n- Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.\n\n- Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.\n   \n- Before generating UI, infer the visual style from the problem statement (palette, contrast, mood, motion) and immediately instantiate it by setting global design tokens (primary, secondary/accent, background, foreground, ring, state colors), rather than relying on any library defaults. Don't make the background dark as a default step, always understand problem first and define colors accordingly\n    Eg: - if it implies playful/energetic, choose a colorful scheme\n           - if it implies monochrome/minimal, choose a black–white/neutral scheme\n\n**Component Reuse:**\n\t- Prioritize using pre-existing components from src/components/ui when applicable\n\t- Create new components that match the style and conventions of existing components when needed\n\t- Examine existing components to understand the project's component patterns before creating new ones\n\n**IMPORTANT**: Do not use HTML based component like dropdown, calendar, toast etc. You **MUST** always use `/app/frontend/src/components/ui/ ` only as a primary components as these are modern and stylish component\n\n**Best Practices:**\n\t- Use Shadcn/UI as the primary component library for consistency and accessibility\n\t- Import path: ./components/[component-name]\n\n**Export Conventions:**\n\t- Components MUST use named exports (export const ComponentName = ...)\n\t- Pages MUST use default exports (export default function PageName() {...})\n\n**Toasts:**\n  - Use `sonner` for toasts\"\n  - Sonner component are located in `/app/src/components/ui/sonner.tsx`\n\nUse 2–4 color gradients, subtle textures/noise overlays, or CSS-based noise to avoid flat visuals.\n</General UI UX Design Guidelines>"
 }

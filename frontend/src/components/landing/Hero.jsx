@@ -3,6 +3,7 @@ import { ArrowDown, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AppAccessActions } from "@/components/AppAccess";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { templateCopy } from "@/i18n/templates";
 import { roiCopy } from "@/i18n/roi";
 export const Hero = () => {
   const { t, lang } = useLanguage();
@@ -15,6 +16,7 @@ export const Hero = () => {
         <p data-testid="hero-subtitle" className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">{o.subtitle}</p>
         <div className="mt-4" data-testid="hero-roi-estimate"><a href="#ahorro" className="inline-flex min-h-11 items-center text-sm font-bold text-primary underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring" data-testid="hero-roi-link" aria-label={roi.heroLink}>{roi.heroLine}</a><p className="text-xs text-muted-foreground" data-testid="hero-roi-assumptions">{roi.heroNote}</p></div>
         <p data-testid="hero-free-offer" className="mt-5 inline-flex items-center gap-2 rounded-full bg-accent/15 px-4 py-2 text-sm font-bold"><Check className="h-4 w-4" />{o.badge}</p>
+        <div className="mt-5"><Button asChild className="brand-button bg-accent text-accent-foreground hover:bg-accent/90"><a href="#download-acta" data-testid="hero-template-cta">{templateCopy[lang].cta}<ArrowDown /></a></Button><p className="mt-2 text-xs text-muted-foreground" data-testid="hero-template-soon">{templateCopy[lang].soon}</p></div>
         <div className="mt-6"><AppAccessActions id="hero" /></div>
         <Button asChild variant="link" className="mt-1 min-h-11 px-0 text-sm"><a href="#ejemplo-documento" data-testid="hero-secondary-cta-button">{o.secondary}<ArrowDown /></a></Button>
       </div>

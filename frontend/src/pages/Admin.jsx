@@ -51,6 +51,7 @@ import { toast } from "sonner";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Logo } from "@/components/landing/Logo";
 import { LanguageToggle } from "@/components/landing/LanguageToggle";
+import { documentKeys } from "@/i18n/routes";
 import { documentContent } from "@/i18n/documentContent";
 import {
   verifyAdmin,
@@ -79,6 +80,7 @@ const DICT = {
     refresh: "Actualizar",
     export: "Exportar CSV",
     searchPlaceholder: "Buscar por nombre, email o empresa…",
+    allTypes: "Todos los orígenes", downloads: "Solicitudes de plantilla", contacts: "Consultas", allDocuments: "Todos los documentos", marketingAll: "Todos los permisos", marketingYes: "Ofertas: autorizado", marketingNo: "Ofertas: no autorizado", template: "Plantilla solicitada", marketing: "Permiso comercial", consentDate: "Fecha del consentimiento", consentVersion: "Versión del consentimiento", delivery: "Solicitud guardada. Archivo y envío no disponibles.",
     allStatuses: "Todos los estados",
     kpis: {
       total: "Total",
@@ -130,6 +132,7 @@ const DICT = {
     refresh: "Refresh",
     export: "Export CSV",
     searchPlaceholder: "Search by name, email or company…",
+    allTypes: "All sources", downloads: "Template requests", contacts: "Enquiries", allDocuments: "All documents", marketingAll: "All permissions", marketingYes: "Offers: opted in", marketingNo: "Offers: not opted in", template: "Requested template", marketing: "Marketing permission", consentDate: "Consent date", consentVersion: "Consent version", delivery: "Request saved. File and email delivery unavailable.",
     allStatuses: "All statuses",
     kpis: {
       total: "Total",
@@ -291,6 +294,9 @@ function Dashboard({ token, onLogout }) {
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [documentFilter, setDocumentFilter] = useState("all");
+  const [marketingFilter, setMarketingFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [selected, setSelected] = useState(null);
   const [editStatus, setEditStatus] = useState("new");
@@ -306,6 +312,9 @@ function Dashboard({ token, onLogout }) {
         fetchLeads(token, {
           search,
           status: statusFilter === "all" ? "" : statusFilter,
+          lead_type: typeFilter === "all" ? "" : typeFilter,
+          document_request: documentFilter === "all" ? "" : documentFilter,
+          marketing_opt_in: marketingFilter === "all" ? "" : marketingFilter,
         }),
       ]);
       setStats(s);
@@ -318,7 +327,7 @@ function Dashboard({ token, onLogout }) {
     } finally {
       setLoading(false);
     }
-  }, [token, search, statusFilter, onLogout, d.badToken]);
+  }, [token, search, statusFilter, typeFilter, documentFilter, marketingFilter, onLogout, d.badToken]);
 
   useEffect(() => {
     const id = setTimeout(load, 250);
@@ -370,6 +379,7 @@ function Dashboard({ token, onLogout }) {
       const res = await api.get("/admin/leads/export", {
         ...adminHeaders(token),
         responseType: "blob",
+        params: Object.fromEntries(Object.entries({ search, status: statusFilter, lead_type: typeFilter, document_request: documentFilter, marketing_opt_in: marketingFilter }).filter(([,v]) => v && v !== "all")),
       });
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const a = document.createElement("a");
@@ -492,6 +502,9 @@ function Dashboard({ token, onLogout }) {
           </div>
         </div>
 
+        <div className="mt-3 grid gap-3 sm:grid-cols-3" data-testid="admin-template-filters">
+          {[{ id: "type", value: typeFilter, set: setTypeFilter, options: [["all",d.allTypes],["download_request",d.downloads],["contact",d.contacts]] }, { id: "document", value: documentFilter, set: setDocumentFilter, options: [["all",d.allDocuments], ...documentKeys.map(key => [key,documentContent[lang][key].name])] }, { id: "marketing", value: marketingFilter, set: setMarketingFilter, options: [["all",d.marketingAll],["true",d.marketingYes],["false",d.marketingNo]] }].map(filter => <Select key={filter.id} value={filter.value} onValueChange={filter.set}><SelectTrigger className="min-h-11" data-testid={`admin-${filter.id}-filter`} aria-label={filter.options[0][1]}><SelectValue /></SelectTrigger><SelectContent>{filter.options.map(([value,label]) => <SelectItem key={value} value={value} data-testid={`admin-${filter.id}-option-${value}`}>{label}</SelectItem>)}</SelectContent></Select>)}
+        </div>
         {/* Table */}
         <div className="mt-5 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
           {loading ? (
@@ -531,7 +544,9 @@ function Dashboard({ token, onLogout }) {
                       className="cursor-pointer hover:bg-muted/60"
                     >
                       <TableCell className="font-medium text-foreground">
-                        {lead.name}
+                        {lead.name || lead.email}
+                        <div data-testid={`admin-lead-type-${lead.id}`} className="mt-1 text-xs text-muted-foreground">{lead.lead_type === "download_request" ? `${d.template}: ${documentContent[lang][lead.document_request]?.name || lead.document_request}` : d.contacts}</div>
+                        {lead.lead_type === "download_request" && <div data-testid={`admin-lead-marketing-${lead.id}`} className="mt-1 text-xs">{lead.marketing_opt_in ? d.marketingYes : d.marketingNo}</div>}
                         <div className="text-xs font-normal text-muted-foreground md:hidden">
                           {lead.email}
                         </div>
@@ -571,7 +586,7 @@ function Dashboard({ token, onLogout }) {
           {selected && (
             <div className="mx-auto w-full max-w-2xl overflow-y-auto px-4 pb-4" data-testid="admin-lead-detail">
               <DrawerHeader className="px-0">
-                <DrawerTitle className="font-heading text-xl">{selected.name}</DrawerTitle>
+                <DrawerTitle className="font-heading text-xl">{selected.name || selected.email}</DrawerTitle>
                 <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                   <a href={`mailto:${selected.email}`} className="inline-flex items-center gap-1.5 hover:text-foreground">
                     <Mail className="h-4 w-4" /> {selected.email}
@@ -589,6 +604,12 @@ function Dashboard({ token, onLogout }) {
                 </div>
               </DrawerHeader>
 
+              {selected.lead_type === "download_request" && <div data-testid="admin-template-details" className="space-y-3 rounded-xl border border-border bg-secondary/40 p-4 text-sm">
+                <p data-testid="admin-template-document"><strong>{d.template}:</strong> {documentContent[lang][selected.document_request]?.name || selected.document_request}</p>
+                <p data-testid="admin-template-marketing"><strong>{d.marketing}:</strong> {selected.marketing_opt_in ? d.marketingYes : d.marketingNo}</p>
+                <p data-testid="admin-template-consent-date">{d.consentDate}: {fmtDate(selected.consented_at)}</p><p data-testid="admin-template-consent-version">{d.consentVersion}: {selected.consent_version}</p>
+                <p className="text-xs text-muted-foreground" data-testid="admin-template-consent-text">{selected.consent_text}</p><p className="text-xs text-muted-foreground" data-testid="admin-template-marketing-text">{selected.marketing_consent_text}</p><p data-testid="admin-template-source" className="break-all text-xs">{selected.source_path}</p><p data-testid="admin-template-delivery-status" className="text-xs">{d.delivery}</p>
+              </div>}
               <div className="grid grid-cols-2 gap-3 border-y border-border py-4 text-sm sm:grid-cols-4">
                 <div>
                   <div className="text-xs text-muted-foreground">{d.cols.role}</div>

@@ -8,8 +8,8 @@ import csv
 import time
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict, EmailStr
-from typing import List, Optional, Dict
+from pydantic import BaseModel, Field, ConfigDict, EmailStr, StrictBool
+from typing import List, Optional, Dict, Literal
 import uuid
 from datetime import datetime, timezone
 
@@ -41,7 +41,7 @@ class Lead(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    name: str
+    name: str = ""
     email: EmailStr
     company: Optional[str] = None
     role: Optional[str] = None
@@ -50,6 +50,14 @@ class Lead(BaseModel):
     message: Optional[str] = None
     language: str = "es"
     consent: bool = False
+    lead_type: str = "contact"
+    document_request: Optional[str] = None
+    marketing_opt_in: bool = False
+    consent_version: Optional[str] = None
+    consented_at: Optional[datetime] = None
+    source_path: Optional[str] = None
+    consent_text: Optional[str] = None
+    marketing_consent_text: Optional[str] = None
     source: str = "landing"
     plan_interest: Optional[str] = None  # which pricing pack they clicked
     utm: Dict[str, str] = Field(default_factory=dict)
@@ -77,7 +85,7 @@ class LeadCreate(BaseModel):
 class LeadOut(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str
-    name: str
+    name: str = ""
     email: str
     company: Optional[str] = None
     role: Optional[str] = None
@@ -86,12 +94,50 @@ class LeadOut(BaseModel):
     message: Optional[str] = None
     language: str = "es"
     consent: bool = False
+    lead_type: str = "contact"
+    document_request: Optional[str] = None
+    marketing_opt_in: bool = False
+    consent_version: Optional[str] = None
+    consented_at: Optional[datetime] = None
+    source_path: Optional[str] = None
+    consent_text: Optional[str] = None
+    marketing_consent_text: Optional[str] = None
     source: str = "landing"
     plan_interest: Optional[str] = None
     utm: Dict[str, str] = Field(default_factory=dict)
     status: str = "new"
     notes: Optional[str] = None
     created_at: datetime
+
+
+DocumentKey = Literal["setting", "visit", "photos", "snagging", "completion"]
+CONSENT_VERSION = "template-request-v1"
+CONSENT_TEXT = {
+    "es": "Acepto que DocuSite trate mi correo para gestionar esta solicitud de plantilla.",
+    "en": "I agree that DocuSite may process my email to handle this template request.",
+}
+MARKETING_TEXT = {
+    "es": "Opcional: quiero recibir consejos y ofertas de DocuSite por email. Puedo retirar mi permiso cuando quiera.",
+    "en": "Optional: I want to receive DocuSite tips and offers by email. I can withdraw my permission at any time.",
+}
+
+
+class DownloadRequestCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    email: EmailStr
+    document_request: DocumentKey
+    language: Literal["es", "en"] = "es"
+    consent: StrictBool = False
+    marketing_opt_in: StrictBool = False
+    source_path: str = Field("/", max_length=300, pattern=r"^/[^?#]*$")
+    website: Optional[str] = Field(None, max_length=300)
+
+
+class DownloadRequestOut(BaseModel):
+    id: str
+    status: Literal["requested"] = "requested"
+    download_available: bool = False
+    email_sent: bool = False
 
 
 class LeadStatusUpdate(BaseModel):
@@ -205,6 +251,32 @@ async def create_lead(payload: LeadCreate, request: Request):
     return LeadOut(**lead.model_dump())
 
 
+@api_router.post("/download-requests", response_model=DownloadRequestOut, status_code=201)
+async def request_template(payload: DownloadRequestCreate, request: Request):
+    if not payload.consent:
+        raise HTTPException(status_code=422, detail="Processing consent is required")
+    if payload.website:
+        return DownloadRequestOut(id=str(uuid.uuid4()))
+    ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "unknown").split(",")[0].strip()
+    if _rate_limited(ip):
+        raise HTTPException(status_code=429, detail="Too many submissions. Please try again later.")
+    now = datetime.now(timezone.utc)
+    lead = Lead(
+        email=str(payload.email).lower(), language=payload.language,
+        lead_type="download_request", source="template_request",
+        document_request=payload.document_request, consent=True,
+        marketing_opt_in=payload.marketing_opt_in,
+        consent_version=CONSENT_VERSION, consented_at=now,
+        consent_text=CONSENT_TEXT[payload.language],
+        marketing_consent_text=MARKETING_TEXT[payload.language],
+        source_path=payload.source_path,
+        utm={"intent": "download_request", "document": payload.document_request, "page": payload.source_path},
+    )
+    doc = lead.model_dump(mode="json")
+    await db.leads.insert_one(doc)
+    return DownloadRequestOut(id=lead.id)
+
+
 # ----------------------------------------------------------------------------
 # Admin routes
 # ----------------------------------------------------------------------------
@@ -239,40 +311,61 @@ async def admin_stats(_: bool = Depends(require_admin)):
     )
 
 
+def lead_query(search=None, status=None, lead_type=None, document_request=None, marketing_opt_in=None):
+    query = {}
+    if status in VALID_STATUSES:
+        query["status"] = status
+    if lead_type == "contact":
+        query["lead_type"] = {"$ne": "download_request"}
+    elif lead_type == "download_request":
+        query["lead_type"] = lead_type
+    if document_request:
+        query["document_request"] = document_request
+    if marketing_opt_in is not None:
+        query["marketing_opt_in"] = True if marketing_opt_in else {"$ne": True}
+    if search and search.strip():
+        import re
+        value = re.escape(search.strip())
+        query["$or"] = [{field: {"$regex": value, "$options": "i"}} for field in ("name", "email", "company")]
+    return query
+
+
 @api_router.get("/admin/leads", response_model=List[LeadOut])
 async def list_leads(
-    _: bool = Depends(require_admin),
-    search: Optional[str] = None,
-    status: Optional[str] = None,
-    limit: int = 500,
+    _: bool = Depends(require_admin), search: Optional[str] = None,
+    status: Optional[str] = None, limit: int = 500,
+    lead_type: Optional[Literal["contact", "download_request"]] = None,
+    document_request: Optional[DocumentKey] = None,
+    marketing_opt_in: Optional[bool] = None,
 ):
-    query: dict = {}
-    if status and status in VALID_STATUSES:
-        query["status"] = status
-    if search:
-        s = search.strip()
-        query["$or"] = [
-            {"name": {"$regex": s, "$options": "i"}},
-            {"email": {"$regex": s, "$options": "i"}},
-            {"company": {"$regex": s, "$options": "i"}},
-        ]
-    docs = await db.leads.find(query).sort("created_at", -1).to_list(limit)
+    query = lead_query(search, status, lead_type, document_request, marketing_opt_in)
+    docs = await db.leads.find(query).sort("created_at", -1).to_list(max(1, min(limit, 5000)))
     return [LeadOut(**serialize_lead(d)) for d in docs]
 
 
 @api_router.get("/admin/leads/export", include_in_schema=False)
-async def export_leads(_: bool = Depends(require_admin)):
-    docs = await db.leads.find({}).sort("created_at", -1).to_list(100000)
+async def export_leads(
+    _: bool = Depends(require_admin), search: Optional[str] = None, status: Optional[str] = None,
+    lead_type: Optional[Literal["contact", "download_request"]] = None,
+    document_request: Optional[DocumentKey] = None, marketing_opt_in: Optional[bool] = None,
+):
+    docs = await db.leads.find(lead_query(search, status, lead_type, document_request, marketing_opt_in)).sort("created_at", -1).to_list(100000)
     output = io.StringIO()
     writer = csv.writer(output)
     writer.writerow([
         "id", "created_at", "name", "email", "company", "role",
         "team_size", "phone", "language", "plan_interest", "status",
         "consent", "message", "notes", "offer", "document_interest", "landing_page",
+        "lead_type", "document_request", "marketing_opt_in", "consent_version", "consented_at", "consent_text", "marketing_consent_text",
     ])
+    def safe_cell(value):
+        if isinstance(value, str) and value.lstrip().startswith(("=", "+", "-", "@", "\t", "\r")):
+            return "'" + value
+        return value
+
     for d in docs:
         d = serialize_lead(d)
-        writer.writerow([
+        writer.writerow([safe_cell(cell) for cell in [
             d.get("id", ""),
             d.get("created_at", ""),
             d.get("name", ""),
@@ -289,8 +382,11 @@ async def export_leads(_: bool = Depends(require_admin)):
             (d.get("notes") or "").replace("\n", " "),
             (d.get("utm") or {}).get("offer", ""),
             (d.get("utm") or {}).get("document", ""),
-            (d.get("utm") or {}).get("page", ""),
-        ])
+            d.get("source_path") or (d.get("utm") or {}).get("page", ""),
+            d.get("lead_type", "contact"), d.get("document_request", ""),
+            d.get("marketing_opt_in", False), d.get("consent_version", ""), d.get("consented_at", ""),
+            d.get("consent_text", ""), d.get("marketing_consent_text", ""),
+        ]])
     csv_bytes = output.getvalue()
     filename = f"docusite-leads-{datetime.now(timezone.utc).strftime('%Y%m%d')}.csv"
     return Response(

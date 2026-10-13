@@ -25,7 +25,7 @@ Bilingual Spanish/English marketing website for an existing AEC documentation ap
 - Official badges supplied by user cropped only outside artwork: `/assets/brand/app-store-badge.webp` and `/assets/brand/google-play-badge.webp`. Used in every app-action cluster, retaining placeholder behavior.
 - Shared action provider/components: `src/components/AppAccess.jsx`. Future URLs go in `src/config/appLinks.js` or corresponding public REACT_APP_* variables (currently empty).
 - Route registry: `src/i18n/routes.js`, 14 logical/28 localized public pages. Contact URLs `/es/contacto` and `/en/contact` replace old demo pages with redirects preserving query context.
-- Per-route canonical, reciprocal hreflang, titles/descriptions and visible-content schema via Seo.jsx. Sitemap generated from registry on config/build. This remains a React SPA; no promise of first-position ranking or server rendering.
+- Per-route canonical, reciprocal hreflang, titles/descriptions and visible-content schema via shared `src/lib/seo.js` + Seo.jsx. Sitemap generated from registry on config/build. Static HTML now generated for all 28 public localized routes from the SAME React components, using `src/prerender.jsx` and `scripts/static-pages.cjs` (esbuild/React server renderer). Preview middleware serves initial route HTML, build emits route/index.html. React adds interactivity client-side. No promise of first-position ranking.
 - Sample document viewer supports 2 authorized Spanish example pages, zoom, image download, accessible dialog. Images are genuine supplied sample assets, not generated previews.
 
 ## Real contact/backend
@@ -48,3 +48,18 @@ Bilingual Spanish/English marketing website for an existing AEC documentation ap
 - Email notifications are postponed.
 
 Preview: https://docuobra.preview.emergentagent.com/es
+
+## Latest completed phase: document SEO + template interest capture
+- User confirmed Spain priority, retain English. No ranking guarantee or made-up search volumes.
+- Expanded all 5 document guides in both languages: definitions, 6-field checklists, 4 preparation steps, errors, contextual examples, distinct FAQs, links to related documents and how/ROI/prices.
+- Spain-specific legal distinctions with BOE references where relevant: public setting-out check LCSP237 vs private building, site minutes vs required books, snag lists vs reservations, closeout record vs completion certificate/reception.
+- New source copy `src/i18n/documentGuides.js`, bilingual form copy `src/i18n/templates.js`; routes unchanged.
+- Lead magnet «Descárgate tu acta» on home and each document, photo page uses informe. Coming-soon label visible next to CTA and form. User has NOT supplied templates, so no fabricated file, PDF/Word link, download or email confirmation.
+- REAL `POST /api/download-requests`: strict document enum and booleans, email, language, required processing permission, optional unchecked marketing opt-in, path without query; UUID and timezone-aware consent timestamp/version/exact wording stored in existing leads collection.
+- Response explicitly download_available=false, email_sent=false; no PII in response except request UUID. Success says request saved, file unavailable, no email or account created.
+- Admin: filters by contact/template origin, document and marketing permission; details include consent date/version/text/source. Filtered CSV matches filters and includes consent evidence. CSV formula escaping and literal regex search escaping added.
+- Website informational privacy disclosure references DocuSite and existing info@projectum.es; no invented legal company identity or guarantee of regulatory compliance.
+- Tests: iteration5 basic API/frontend; iteration6 all28 raw SEO routes, admin CSV filters, 360/390 mobile. Iteration6 reported checkbox/429 blockers were test fixture errors, not product defects. Existing Radix data-testids were present from initial implementation; corrected selectors and fresh reserved test IPs resolved them.
+- Final iteration7: 23/23 enhanced API + 57/57 comprehensive tests passed. Browser ES home photo request with marketing=false and EN closeout request with marketing=true persisted and cleaned; no-JS Spanish guide readable. Built HTML contains head/body. Final yarn build, Python compile and git diff --check passed.
+- Test reports preserve history; do not claim explicit 5-then-6 download endpoint boundary tested in latest iteration (429 observed; prior existing backend boundary tested earlier). Optional marketing remains independent of receiving template request.
+- Deferred: upload actual templates and enable their delivery once provided; email delivery integration not active. Existing app/store registration links remain intentionally MOCKED.

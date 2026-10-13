@@ -12,7 +12,7 @@ export const Reveal = ({ children, delay = 0, y = 14, className = "", as = "div"
   return (
     <MotionTag
       className={className}
-      initial={{ opacity: 0, y }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
@@ -28,7 +28,7 @@ export const Stagger = ({ children, className = "", stagger = 0.08 }) => {
   return (
     <motion.div
       className={className}
-      initial="hidden"
+      initial="show"
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={{

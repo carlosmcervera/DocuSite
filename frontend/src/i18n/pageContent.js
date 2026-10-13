@@ -1,3 +1,4 @@
+import { documentGuides } from "./documentGuides";
 import { documentContent } from "./documentContent";
 export const pageContent = {
   es: {
@@ -23,4 +24,4 @@ export const pageContent = {
     contact: { label: "Contact", title: "Contact the DocuSite team", description: "Ask about DocuSite, documents and packages. Contact the team for help. You don't need to request a demo to start using the app.", h1: "Is there something you'd like to ask?", intro: "Ask about the app, documents or packages. If you're ready to start, create your account: you don't need to go through this form." }
   }
 };
-export const getPageContent = (key, lang) => documentContent[lang][key] || pageContent[lang][key];
+export const getPageContent = (key, lang) => documentContent[lang][key] ? { ...documentContent[lang][key], ...documentGuides[lang][key] } : pageContent[lang][key];

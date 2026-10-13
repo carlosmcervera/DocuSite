@@ -1,6 +1,7 @@
 // craco.config.js
 const path = require("path");
 require("dotenv").config();
+const { StaticPagesPlugin, middleware: staticPageMiddleware } = require("./scripts/static-pages.cjs");
 require("./scripts/generate-sitemap.cjs");
 
 // Check if we're in development/preview mode (not production build)
@@ -110,6 +111,7 @@ let webpackConfig = {
       '@': path.resolve(__dirname, 'src'),
     },
     configure: (webpackConfig) => {
+      webpackConfig.plugins.push(new StaticPagesPlugin());
 
       // Add ignored patterns to reduce watched directories
         webpackConfig.watchOptions = {
@@ -224,7 +226,15 @@ if (emergentOverlay) {
 }
 
 const configureDevServer = webpackConfig.devServer;
-webpackConfig.devServer = (devServerConfig) =>
-  makeDevServerV5Compatible(configureDevServer(devServerConfig));
+webpackConfig.devServer = (devServerConfig) => {
+  const configured = makeDevServerV5Compatible(configureDevServer(devServerConfig));
+  const previous = configured.setupMiddlewares;
+  configured.setupMiddlewares = (middlewares, server) => {
+    const result = previous ? previous(middlewares,server) : middlewares;
+    result.unshift({ name: "docusite-readable-html", middleware: staticPageMiddleware });
+    return result;
+  };
+  return configured;
+};
 
 module.exports = webpackConfig;
