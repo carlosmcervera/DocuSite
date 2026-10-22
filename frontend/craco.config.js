@@ -111,6 +111,22 @@ let webpackConfig = {
       '@': path.resolve(__dirname, 'src'),
     },
     configure: (webpackConfig) => {
+      // Our initial HTML is pre-rendered. Extract CSS in preview too, so it is
+      // available before paint rather than appearing only after JS execution.
+      // MiniCssExtractPlugin retains CSS hot updates; production CRA already uses it.
+      if(isDevServer){
+        const MiniCssExtractPlugin=require('mini-css-extract-plugin');
+        const extractInitialCss=(rules)=>rules.forEach(rule=>{
+          if(rule.oneOf)extractInitialCss(rule.oneOf);
+          if(rule.rules)extractInitialCss(rule.rules);
+          if(Array.isArray(rule.use))rule.use=rule.use.map(loader=>{
+            const name=typeof loader==='string'?loader:loader?.loader;
+            return name?.includes('style-loader')?{loader:MiniCssExtractPlugin.loader}:loader;
+          });
+        });
+        extractInitialCss(webpackConfig.module.rules);
+        webpackConfig.plugins.push(new MiniCssExtractPlugin({filename:'static/css/[name].css',chunkFilename:'static/css/[id].css'}));
+      }
       webpackConfig.plugins.push(new StaticPagesPlugin());
 
       // Add ignored patterns to reduce watched directories

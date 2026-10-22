@@ -1,22 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useLanguage } from "@/i18n/LanguageContext";
-import { pagePath, documentKeys } from "@/i18n/routes";
-import { documentContent } from "@/i18n/documentContent";
-import { Logo } from "@/components/landing/Logo";
-export const Footer = () => {
-  const { t, lang } = useLanguage();
-  const links = { documents: t.nav.documents, how: t.nav.how, features: t.nav.features, pricing: t.nav.pricing, roi: t.common.roi, useCases: t.common.useCases, faq: t.nav.faq };
-  const linkClass = "inline-flex min-h-11 items-center text-sm text-primary-foreground/75 hover:text-primary-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded";
-  return <footer className="bg-primary text-primary-foreground" data-testid="site-footer">
-    <div className="container-ds py-12">
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        <div><Link to={pagePath("home", lang)} data-testid="footer-logo"><Logo onDark /></Link><p className="mt-4 text-sm leading-relaxed text-primary-foreground/75" data-testid="footer-tagline">{t.footer.tagline}</p></div>
-        <div><h2 className="text-sm font-semibold" data-testid="footer-product-title">{t.footer.product}</h2><ul className="mt-3">{Object.entries(links).map(([key, label]) => <li key={key}><Link className={linkClass} to={pagePath(key, lang)} data-testid={`footer-link-${key}`}>{label}</Link></li>)}</ul></div>
-        <div><h2 className="text-sm font-semibold" data-testid="footer-documents-title">{t.nav.documents}</h2><ul className="mt-3">{documentKeys.map(key => <li key={key}><Link className={linkClass} to={pagePath(key, lang)} data-testid={`footer-document-${key}`}>{documentContent[lang][key].name}</Link></li>)}</ul></div>
-        <div><h2 className="text-sm font-semibold" data-testid="footer-contact-title">{t.footer.company}</h2><ul className="mt-3"><li><Link to={pagePath("contact", lang)} className={linkClass} data-testid="footer-contact-link">{t.offer.contact}</Link></li><li><Link to="/admin" className={linkClass} data-testid="footer-admin-link">{t.footer.links.admin}</Link></li></ul></div>
-      </div>
-      <div className="mt-8 flex flex-col justify-between gap-3 border-t border-primary-foreground/20 pt-6 text-xs text-primary-foreground/70 sm:flex-row" data-testid="footer-copyright"><span>© {new Date().getFullYear()} DocuSite. {t.footer.rights}</span><span>{t.footer.madeFor}</span></div>
-    </div>
-  </footer>;
-};
+import React from 'react';
+import {Link} from 'react-router-dom';
+import {Logo} from '@/components/landing/Logo';
+import {useLanguage} from '@/i18n/LanguageContext';
+import {pagePath,documentKeys} from '@/i18n/routes';
+import {documentContent} from '@/i18n/documentContent';
+export const Footer=()=>{const {t,lang}=useLanguage();const b=t.brief;return <footer className='band-dark py-12' data-testid='site-footer'><div className='container-ds'><div className='grid gap-8 md:grid-cols-3'><div><Link to={pagePath('home',lang)} data-testid='footer-logo'><Logo onDark/></Link><p className='mt-4 max-w-xs text-sm text-white/70'>{b.hero.reinforce}</p></div><nav aria-label={b.footer.docs}><h2 className='text-lg'>{b.footer.docs}</h2><ul className='mt-3'>{documentKeys.map(key=><li key={key}><Link className='inline-flex min-h-11 items-center text-sm text-white/70 hover:text-white' to={pagePath(key,lang)} data-testid={`footer-document-${key}`}>{documentContent[lang]?.[key]?.name}</Link></li>)}</ul></nav><nav aria-label={b.footer.contact}>{['contact','privacy','legal','cookies'].map(key=><Link key={key} to={pagePath(key,lang)} className='flex min-h-11 items-center text-sm text-white/70 hover:text-white' data-testid={`footer-${key}-link`}>{b.footer[key]}</Link>)}<Link to='/admin' data-testid='footer-admin-link' className='mt-3 inline-flex min-h-11 items-center text-xs text-white/60'>{b.footer.team}</Link></nav></div><nav aria-label={b.footer.guides} className='mt-10 border-t border-white/15 pt-6'><h2 className='text-lg'>{b.footer.guides}</h2><div className='mt-2 flex flex-wrap gap-x-6 gap-y-1'>{['direction','execution'].map((key,i)=><Link key={key} to={pagePath(key,lang)} className='inline-flex min-h-11 items-center text-sm text-white/75 hover:text-white' data-testid={`footer-guide-${key}`}>{b.audience.items[i][0]}</Link>)}<Link to={pagePath('documents',lang)} className='inline-flex min-h-11 items-center text-sm text-white/75 hover:text-white' data-testid='footer-all-documents'>{b.docs.title}</Link></div></nav><p className='mt-8 border-t border-white/15 pt-6 text-xs text-white/60'>© {new Date().getFullYear()} DocuSite</p></div></footer>;};

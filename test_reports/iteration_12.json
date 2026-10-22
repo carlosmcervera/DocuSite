@@ -1,0 +1,119 @@
+{
+  "summary": "Completed final regression testing of DocuSite SEO/UX fixes from iteration 11. Re-ran REAL Lighthouse mobile audits on /es and /es/direccion-de-obra, verified CSS extraction with MiniCssExtractPlugin (no FOUC), validated breadcrumb 44px touch targets, tested skip link focus state, verified font/OG image resources, and audited ALL 474 anchor links across 57 routes including cross-page anchors. All fixes confirmed working.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Lighthouse Homepage: Accessibility 100/100 (was 96 - phone contrast FIXED)",
+    "Lighthouse Homepage: CLS 0 (maintained excellent layout stability)",
+    "Lighthouse Homepage: Performance 71/100 (was 47 - improved 24 points)",
+    "Lighthouse Homepage: LCP 2.1s (was 6.3s - improved 4.2s)",
+    "Lighthouse Guide: Accessibility 100/100 (maintained)",
+    "Lighthouse Guide: CLS 0 (was 1 - layout shift FIXED)",
+    "Lighthouse Guide: Performance 76/100 (was 30 - improved 46 points)",
+    "Lighthouse Guide: LCP 2.3s (was 5.9s - improved 3.6s)",
+    "CSS Extraction: 3 CSS links in HTML (archivo.css, inter.css, main.css)",
+    "CSS Extraction: MiniCssExtractPlugin working in dev mode",
+    "Font Loading: No FOUC detected on 360px mobile or 1920px desktop",
+    "Font Loading: Archivo and Inter variable fonts loading correctly",
+    "Breadcrumb Touch Targets: 44x44px on guide pages (was 20-40px - FIXED)",
+    "Skip Link: Hidden state 1x1px (intentional sr-only)",
+    "Skip Link: Focused state 173x56.8px (exceeds 44px requirement)",
+    "Font Resources: archivo.css returns 200 with text/css content-type",
+    "Font Resources: inter.css returns 200 with text/css content-type",
+    "OG Images: Absolute URL (https://docuobra.preview.emergentagent.com/assets/brand/social-es.png)",
+    "OG Images: Returns 200 with image/png content-type",
+    "OG Images: Correct dimensions 1200x630",
+    "Cross-Page Anchors: All 204 same-page anchor links valid",
+    "Cross-Page Anchors: All 270 cross-page anchor links valid",
+    "Cross-Page Anchors: All 57 pages audited successfully",
+    "SEO Build: 57 pages rendered with pre-rendered HTML",
+    "SEO Build: 136,764 chars of pre-rendered content in #root",
+    "Console: No errors or warnings (only webpack deprecation notices)",
+    "HMR: Hot module replacement functional after CSS extraction",
+    "Production Build: Optimized CSS links present in HTML"
+  ],
+  "test_report_links": [
+    "/app/test_reports/lighthouse-home-final.json",
+    "/app/test_reports/lighthouse-guide-final.json",
+    "/app/test_cross_page_anchors.py"
+  ],
+  "success_percentage": {
+    "lighthouse_accessibility": "100% (100/100 on both pages)",
+    "lighthouse_cls": "100% (0 on both pages - guide page fixed from 1)",
+    "lighthouse_performance": "73.5% (71-76/100 - major improvement from 30-47)",
+    "lighthouse_seo": "92.5% (92-93/100 - external noindex issue only)",
+    "css_extraction": "100% (MiniCssExtractPlugin working, no FOUC)",
+    "touch_targets": "100% (breadcrumbs 44px, skip link 44px when focused)",
+    "resource_validation": "100% (fonts 200 OK, OG images 200 OK 1200x630)",
+    "anchor_validation": "100% (474 anchor links valid across 57 pages)",
+    "seo_build": "100% (57 pages with pre-rendered content)"
+  },
+  "updated_files": [
+    "/app/test_cross_page_anchors.py"
+  ],
+  "action_item_for_main_agent": "",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false,
+  "lighthouse_comparison": {
+    "homepage_improvements": {
+      "accessibility": "96 → 100 (+4 points, phone contrast fixed)",
+      "performance": "47 → 71 (+24 points)",
+      "cls": "0 → 0 (maintained)",
+      "lcp": "6.3s → 2.1s (-4.2s improvement)",
+      "seo": "93 → 93 (maintained, external noindex)"
+    },
+    "guide_improvements": {
+      "accessibility": "100 → 100 (maintained)",
+      "performance": "30 → 76 (+46 points)",
+      "cls": "1 → 0 (FIXED - major improvement)",
+      "lcp": "5.9s → 2.3s (-3.6s improvement)",
+      "seo": "92 → 92 (maintained, external noindex)"
+    }
+  },
+  "fixes_verified": {
+    "opacity_animation_removed": "✅ No fading text, transform animation kept",
+    "breadcrumb_touch_targets": "✅ 44x44px (min-h-11 min-w-11 applied)",
+    "variable_fonts_deduplicated": "✅ Single @font-face with weight 100-900",
+    "css_extraction_dev": "✅ MiniCssExtractPlugin working, CSS links in HTML",
+    "production_build": "✅ 57 pages rendered, optimized CSS links correct"
+  },
+  "external_issues_noted": {
+    "x_robots_noindex": "Preview environment has X-Robots-Tag: noindex (Cloudflare/infrastructure, not app code)",
+    "seo_score_impact": "SEO score 92-93/100 due to external noindex, would be higher in production",
+    "cloudflare_warnings": "Persistent storage deprecation warnings from Cloudflare (external, not app issue)"
+  },
+  "cross_page_anchor_audit_detail": {
+    "total_pages_audited": 57,
+    "same_page_anchors": 204,
+    "cross_page_anchors": 270,
+    "broken_same_page": 0,
+    "broken_cross_page": 0,
+    "note": "First comprehensive cross-page anchor validation - all 474 anchor links valid"
+  },
+  "css_rendering_detail": {
+    "css_links_in_html": 3,
+    "css_files": [
+      "/assets/fonts/archivo.css",
+      "/assets/fonts/inter.css",
+      "/static/css/main.css"
+    ],
+    "inline_styles": "14,926 chars (normal for critical CSS)",
+    "fouc_detected": false,
+    "fonts_loaded": "Archivo (headings), Inter (body)",
+    "hmr_functional": true
+  },
+  "known_limitations": [
+    "SEO scores (92-93/100) reflect external X-Robots-Tag: noindex from preview environment, not app code",
+    "Some inline styles (14,926 chars) present for critical CSS - normal for CRA with MiniCssExtractPlugin",
+    "Language button and mobile menu button don't have data-testid attributes (minor, functionality works)"
+  ],
+  "regression_test_complete": true,
+  "all_iteration_11_issues_resolved": true
+}

@@ -15,7 +15,10 @@ export const Seo = ({ pageKey = "home" }) => {
     const origin = (process.env.REACT_APP_SITE_URL || window.location.origin).replace(/\/$/,"");
     const data = buildSeoData(pageKey,lang,t,origin,window.location.pathname);
     document.title = data.title; document.documentElement.lang = lang;
-    seoMetadata(data).forEach(([attr,key,value]) => setMeta(attr,key,value));
+    document.head.querySelectorAll('meta[property^="og:"],meta[name^="twitter:"]').forEach(el => el.remove());
+    seoMetadata(data).forEach(([attr,key,value]) => {
+      if(key==='og:locale:alternate'){const el=document.createElement('meta');el.setAttribute(attr,key);el.content=value;document.head.appendChild(el);}else setMeta(attr,key,value);
+    });
     document.head.querySelectorAll('link[rel="canonical"],link[rel="alternate"][hreflang],meta[name="keywords"],script[type="application/ld+json"]').forEach(el => el.remove());
     addLink("canonical",data.canonical); data.alternates.forEach(alt => addLink("alternate",alt.url,alt.lang));
     if (data.graph.length) { const script = document.createElement("script"); script.type = "application/ld+json"; script.id = "docusite-structured-data"; script.textContent = serializeSchema(data.graph); document.head.appendChild(script); }

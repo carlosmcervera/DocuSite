@@ -1,0 +1,27 @@
+{
+  "url": "https://docuobra.preview.emergentagent.com/es/direccion-de-obra",
+  "fetchTime": "2026-10-22T11:05:48.237Z",
+  "categories": {
+    "performance": 76,
+    "accessibility": 100,
+    "bestPractices": 81,
+    "seo": 92
+  },
+  "metrics": {
+    "fcp": "1.7 s",
+    "lcp": "2.3 s",
+    "cls": "0",
+    "tbt": "910 ms",
+    "speedIndex": "3.2 s"
+  },
+  "failedAudits": {
+    "accessibility": [],
+    "seo": [
+      {
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "description": "Search engines are unable to include your pages in search results if they don't have permission to crawl them. [Learn more about crawler directives](https://developer.chrome.com/docs/lighthouse/seo/is-crawlable/)."
+      }
+    ]
+  }
+}

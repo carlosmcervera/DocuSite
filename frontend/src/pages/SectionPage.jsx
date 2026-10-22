@@ -1,23 +1,34 @@
-import React from "react";
-import { MarketingLayout, PageBreadcrumbs, ClosingCta } from "@/components/MarketingLayout";
-import { Documents } from "@/components/landing/Documents";
-import { HowItWorks } from "@/components/landing/HowItWorks";
-import { Features } from "@/components/landing/Features";
-import { RoiCalculator } from "@/components/landing/RoiCalculator";
-import { UseCases } from "@/components/landing/UseCases";
-import { Pricing } from "@/components/landing/Pricing";
-import { Faq } from "@/components/landing/Faq";
-import { LeadForm } from "@/components/landing/LeadForm";
-import { useLanguage } from "@/i18n/LanguageContext";
-import { pageContent } from "@/i18n/pageContent";
-const sections = { documents: Documents, how: HowItWorks, features: Features, roi: RoiCalculator, useCases: UseCases, pricing: Pricing, faq: Faq, contact: LeadForm };
-export default function SectionPage({ pageKey }) {
-  const { lang } = useLanguage();
-  const content = pageContent[lang][pageKey];
-  const Section = sections[pageKey];
-  return <MarketingLayout pageKey={pageKey}>
-    <header className="container-ds py-8 sm:py-12" data-testid={`section-page-${pageKey}`}><PageBreadcrumbs label={content.label} /><p className="eyebrow" data-testid="page-eyebrow">{content.label}</p><h1 className="mt-4 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl" data-testid="page-title">{content.h1}</h1><p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground" data-testid="page-intro">{content.intro}</p></header>
-    <Section />
-    {pageKey !== "contact" && <ClosingCta />}
-  </MarketingLayout>;
+import React from 'react';
+import {Link} from 'react-router-dom';
+import {ArrowRight,Check} from 'lucide-react';
+import {Card} from '@/components/ui/card';
+import {MarketingLayout,PageBreadcrumbs} from '@/components/MarketingLayout';
+import {HowSection,ComparisonSection,AgreementsSection,AudienceSection,CalculatorSection,PricingSection,FaqSection,FinalSection} from '@/components/BriefSections';
+import {LeadForm} from '@/components/landing/LeadForm';
+import {PdfButton} from '@/components/PdfGate';
+import {useLanguage} from '@/i18n/LanguageContext';
+import {getPageContent} from '@/i18n/pageContent';
+import {documentKeys,pagePath} from '@/i18n/routes';
+import {documentContent} from '@/i18n/documentContent';
+const catalog={
+ es:{choose:'¿Qué documento necesitas en esta fase?',include:'¿Qué debe incluir un acta de obra?',text:'Un acta útil permite reconstruir qué se observó, qué se decidió y quién debe actuar. Identifica cada visita y conserva la relación entre fotos, instrucciones y acuerdos.',fields:['Obra, fecha, número de visita y asistentes con su función.','Observaciones con ubicación y fotografías de referencia.','Acuerdos diferenciados de las propuestas, con responsable y plazo cuando estén definidos.','Estado de los pendientes anteriores, versión revisada y firmas que correspondan.'],legal:'El acta de visita, el acta de replanteo y el registro de fin de obra no tienen la misma finalidad. Distingue los registros de seguimiento de los documentos obligatorios, como el Libro de Órdenes, el certificado final y la recepción. Cada guía explica el contexto aplicable.'},
+ ca:{choose:'Quin document necessites en aquesta fase?',include:'Què ha d’incloure una acta d’obra?',text:'Una acta útil permet reconstruir què es va observar, què es va decidir i qui ha d’actuar. Identifica cada visita i conserva la relació entre fotos, instruccions i acords.',fields:['Obra, data, número de visita i assistents amb la seva funció.','Observacions amb ubicació i fotografies de referència.','Acords diferenciats de les propostes, amb responsable i termini quan estiguin definits.','Estat dels pendents anteriors, versió revisada i signatures corresponents.'],legal:'L’acta de visita, l’acta de replanteig i el registre de final d’obra no tenen la mateixa finalitat. Distingeix els registres de seguiment dels documents obligatoris, com el Llibre d’Ordres, el certificat final i la recepció. Cada guia explica el context aplicable.'},
+ en:{choose:'Which document do you need at this stage?',include:'What should a construction site record include?',text:'A useful record lets readers understand what was observed, what was decided and who should act. Identify each visit and keep photos, instructions and decisions connected.',fields:['Project, date, visit number and attendees with their roles.','Observations with locations and reference photographs.','Decisions distinguished from proposals, with owners and deadlines where agreed.','Previous open actions, reviewed version and appropriate signatures.'],legal:'Visit minutes, setting-out records and closeout records serve different purposes. Distinguish follow-up notes from required documents such as Spain’s Libro de Órdenes, completion certificate and reception record. Each guide explains the relevant context.'}
+};
+const pageHeadings={es:{how:'Cómo hacer tus actas con DocuSite.',pricing:'Precios claros. Todo tu equipo dentro.',roi:'Ponle valor a tu tiempo.',faq:'Preguntas sobre DocuSite.',features:'Acuerdos e incidencias, bajo control.',useCases:'Para quienes están a pie de obra.'},ca:{how:'Com fer les teves actes amb DocuSite.',pricing:'Preus clars. Tot el teu equip dins.',roi:'Posa valor al teu temps.',faq:'Preguntes sobre DocuSite.',features:'Acords i incidències, sota control.',useCases:'Per a qui és a peu d’obra.'},en:{how:'How to create your records with DocuSite.',pricing:'Clear pricing. Your whole team included.',roi:'Put a value on your time.',faq:'Questions about DocuSite.',features:'Keep actions and issues under control.',useCases:'For the people on site.'}};
+export default function SectionPage({pageKey}){
+ const {t,lang}=useLanguage();const b=t.brief;const c=getPageContent(pageKey,lang);const cat=catalog[lang];
+ const components={how:HowSection,features:ComparisonSection,roi:CalculatorSection,useCases:AudienceSection,pricing:PricingSection,faq:FaqSection,contact:LeadForm};const Section=components[pageKey];
+ return <MarketingLayout pageKey={pageKey}>
+  <header className='container-ds py-10 sm:py-14'><PageBreadcrumbs label={c.label}/><h1 className='brief-title max-w-5xl' data-testid='page-title'>{pageHeadings[lang][pageKey]||c.h1}</h1>{c.intro&&!Section&&<p className='muted-copy mt-5 max-w-3xl text-lg' data-testid='section-introduction'>{c.intro}</p>}</header>
+  {Section&&<Section/>}{pageKey==='features'&&<AgreementsSection/>}
+  {pageKey==='documents'&&<article className='container-ds pb-16' data-testid='documents-catalog'>
+   <h2 className='text-3xl'>{cat.choose}</h2><div className='mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3'>{documentKeys.map(key=><Card key={key} className='shadow-none'><Link className='block h-full rounded-2xl p-6 hover:bg-secondary' to={pagePath(key,lang)} data-testid={`document-link-${key}`}><h3 className='text-2xl'>{documentContent[lang][key].name}</h3><p className='muted-copy mt-4'>{documentContent[lang][key].short}</p><ArrowRight className='mt-5 h-5 w-5 text-[var(--accent-text)]' aria-hidden='true'/></Link></Card>)}</div>
+   <section className='mt-12 grid gap-8 lg:grid-cols-2'><div><h2 className='text-3xl'>{cat.include}</h2><p className='muted-copy mt-5 leading-relaxed'>{cat.text}</p><p className='muted-copy mt-5 text-sm leading-relaxed' data-testid='catalog-legal-context'>{cat.legal}</p></div><Card className='p-6 shadow-none'><ul className='space-y-5'>{cat.fields.map((f,i)=><li key={f} className='flex gap-3' data-testid={`catalog-check-${i}`}><Check className='mt-1 h-5 w-5 shrink-0 text-[var(--accent-text)]' aria-hidden='true'/>{f}</li>)}</ul></Card></section>
+   <PdfButton id='documents-sample-button' section='documents' className='brand-button mt-8'>{b.docs.sample}</PdfButton><p className='muted-copy mt-3 text-sm'>{b.docs.sampleNote}</p>
+   <nav aria-label={b.footer.guides} className='mt-12 grid gap-4 sm:grid-cols-2'>{['direction','execution'].map((key,i)=><Link className='brief-card flex items-center justify-between gap-3 hover:border-primary' key={key} to={pagePath(key,lang)} data-testid={`catalog-guide-${key}`}>{b.audience.items[i][0]}<ArrowRight className='h-5 w-5 shrink-0' aria-hidden='true'/></Link>)}</nav>
+  </article>}
+  {['privacy','legal','cookies'].includes(pageKey)&&<section className='container-ds pb-16'><div className='max-w-3xl space-y-6 leading-relaxed'><p data-testid='legal-contact'>{b.legal.contact}</p><p data-testid='legal-content'>{b.legal[pageKey]}</p><a href='mailto:info@projectum.es' className='inline-flex min-h-11 items-center text-[var(--accent-text)] underline' data-testid='legal-email-link'>info@projectum.es</a></div></section>}
+  {!['contact','privacy','legal','cookies'].includes(pageKey)&&<FinalSection/>}
+ </MarketingLayout>;
 }

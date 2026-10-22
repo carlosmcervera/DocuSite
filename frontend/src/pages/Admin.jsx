@@ -51,6 +51,7 @@ import { toast } from "sonner";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Logo } from "@/components/landing/Logo";
 import { LanguageToggle } from "@/components/landing/LanguageToggle";
+import { AnalyticsPanel } from '@/components/AnalyticsPanel';
 import { documentKeys } from "@/i18n/routes";
 import { documentContent } from "@/i18n/documentContent";
 import {
@@ -172,6 +173,8 @@ const DICT = {
   },
 };
 
+DICT.ca={...DICT.es,loginTitle:'Accés de l’equip',loginSub:'Introdueix el teu token d’administrador per veure les sol·licituds.',tokenLabel:'Token d’administrador',tokenPlaceholder:'Introdueix el token…',enter:'Entrar',verifying:'Verificant…',badToken:'Token incorrecte. Torna-ho a provar.',backHome:'Tornar a l’inici',title:'Panell de sol·licituds',logout:'Sortir',refresh:'Actualitzar',export:'Exportar CSV',searchPlaceholder:'Cercar per nom, email o empresa…',allTypes:'Tots els orígens',downloads:'Sol·licituds de documents',contacts:'Consultes',allDocuments:'Tots els documents',marketingAll:'Tots els permisos',marketingYes:'Ofertes: autoritzat',marketingNo:'Ofertes: no autoritzat',template:'Document sol·licitat',marketing:'Permís comercial',consentDate:'Data del consentiment',consentVersion:'Versió del consentiment',delivery:'Sol·licitud històrica. Arxiu i enviament no disponibles.',allStatuses:'Tots els estats',kpis:{total:'Total',new:'Noves',contacted:'Contactades',won:'Guanyades',lost:'Perdudes',last7:'Últims 7 dies'},cols:{name:'Nom',email:'Email',company:'Empresa',role:'Rol',lang:'Idioma',status:'Estat',date:'Data'},empty:'Encara no hi ha sol·licituds.',emptyHint:'Quan algú ompli el formulari, apareixerà aquí.',detail:'Detall de la sol·licitud',message:'Missatge',notes:'Notes internes',notesPlaceholder:'Afegeix notes de seguiment…',teamSize:'Mida de l’equip',planInterest:'Paquet d’interès',save:'Guardar canvis',saving:'Guardant…',saved:'Canvis guardats',delete:'Eliminar',deleted:'Sol·licitud eliminada',confirmDelete:'Eliminar aquesta sol·licitud? No es pot desfer.',noMessage:'Sense missatge',exported:'Exportació iniciada',exportError:'No s’ha pogut exportar',statuses:{new:'Nova',contacted:'Contactada',won:'Guanyada',lost:'Perduda'}};
+
 const STATUS_STYLE = {
   new: "bg-accent/15 text-accent-foreground border-accent/30",
   contacted: "bg-sky-100 text-sky-800 border-sky-200",
@@ -189,7 +192,7 @@ function StatusBadge({ status, d }) {
 
 function LoginGate({ onAuthed }) {
   const { lang } = useLanguage();
-  const d = DICT[lang];
+  const d = DICT[lang] || DICT.es;
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -288,7 +291,7 @@ function Kpi({ icon: Icon, label, value, tone = "default" }) {
 
 function Dashboard({ token, onLogout }) {
   const { lang, t } = useLanguage();
-  const d = DICT[lang];
+  const d = DICT[lang] || DICT.es;
 
   const [stats, setStats] = useState(null);
   const [leads, setLeads] = useState([]);
@@ -578,6 +581,7 @@ function Dashboard({ token, onLogout }) {
             </div>
           )}
         </div>
+        <AnalyticsPanel token={token}/>
       </main>
 
       {/* Detail Drawer */}
@@ -608,7 +612,7 @@ function Dashboard({ token, onLogout }) {
                 <p data-testid="admin-template-document"><strong>{d.template}:</strong> {documentContent[lang][selected.document_request]?.name || selected.document_request}</p>
                 <p data-testid="admin-template-marketing"><strong>{d.marketing}:</strong> {selected.marketing_opt_in ? d.marketingYes : d.marketingNo}</p>
                 <p data-testid="admin-template-consent-date">{d.consentDate}: {fmtDate(selected.consented_at)}</p><p data-testid="admin-template-consent-version">{d.consentVersion}: {selected.consent_version}</p>
-                <p className="text-xs text-muted-foreground" data-testid="admin-template-consent-text">{selected.consent_text}</p><p className="text-xs text-muted-foreground" data-testid="admin-template-marketing-text">{selected.marketing_consent_text}</p><p data-testid="admin-template-source" className="break-all text-xs">{selected.source_path}</p><p data-testid="admin-template-delivery-status" className="text-xs">{d.delivery}</p>
+                <p className="text-xs text-muted-foreground" data-testid="admin-template-consent-text">{selected.consent_text}</p><p className="text-xs text-muted-foreground" data-testid="admin-template-marketing-text">{selected.marketing_consent_text}</p><p data-testid="admin-template-source" className="break-all text-xs">{selected.source_path}</p><p data-testid="admin-template-delivery-status" className="text-xs">{selected.source === 'sample_pdf' ? (lang==='en'?'PDF access granted; email delivery not used.':lang==='ca'?'Accés al PDF concedit; sense enviament per correu.':'Acceso al PDF concedido; sin envío por correo.') : d.delivery}</p>
               </div>}
               <div className="grid grid-cols-2 gap-3 border-y border-border py-4 text-sm sm:grid-cols-4">
                 <div>

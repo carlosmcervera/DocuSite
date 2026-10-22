@@ -1,255 +1,253 @@
 {
-  "brand_context": {
-    "product": "DocuObra / DocuSite marketing site",
+  "project": {
+    "name": "DocuSite marketing site — SEO + copy corrections audit (no redesign)",
     "app_type": "marketing_site",
-    "audience": ["AEC offices (Spain)", "site engineers", "project managers"],
-    "tone": "Direct, outcome-first, credible (no exaggerated promises)",
-    "primary_conversion": [
-      "Lead magnet: 'Descárgate tu Acta' (email gate + document choice)",
-      "Secondary: Register / start free 3 docs (in-app)",
-      "Secondary: App Store / Google Play badges (MOCKED links; honest dialog)"
-    ],
-    "constraints": {
-      "tech": "React (CRA) + Tailwind + shadcn/ui (JS files) + FastAPI + Mongo",
-      "preserve_approved_branding": {
-        "colors": {
-          "navy": "#17243F",
-          "amber": "#E39B1B",
-          "bg": "#F4F3EE",
-          "text": "#141B2B",
-          "muted": "#5D6270",
-          "border": "#E0DED6"
-        },
-        "fonts": "Cabinet Grotesk (headings) + Satoshi (body)"
-      },
-      "no_new_images": true,
-      "no_fake_claims": "No #1 guarantee. No fake download promises. If COMING SOON, say so.",
-      "routes": "Keep existing 28 localized routes incl. docs pages (5 docs × 2 langs) + home + ROI route",
-      "roi_placement": "ROI block stays immediately after hero on Home (preserve existing ROI + app buttons).",
-      "email_capture": "Captured emails must be REAL and visible in admin; include consent audit fields (version/date).",
-      "store_urls": "App store/register URLs are deliberately MOCKED; keep honest messaging."
-    }
-  },
-
-  "seo_content_system_for_document_pages": {
-    "goal": "Optimize each document page for Spain SEO intent + conversion to lead magnet without changing approved visual brand.",
-    "page_template_sections_order": [
-      "1) Hero (H1 + 1-sentence value + primary CTA anchor)",
-      "2) Inline lead magnet form (anchored target) — compact",
-      "3) What you’ll get (bullets) + who it’s for",
-      "4) Step-by-step: how to obtain / fill / common pitfalls (Spain context)",
-      "5) FAQ (accordion) with readable anchors",
-      "6) Related documents (internal links)",
-      "7) Trust + next step (app CTA + ROI reference)"
-    ],
-    "copy_rules": {
-      "language": "User choice: keep English UI where already English; but document pages should be localized ES/EN per route. Avoid legal overreach.",
-      "headings": "Exactly one H1 per page. Use H2/H3 for scannability. Use short paragraphs + lists.",
-      "anchors": "Add in-page anchor links near top: #descargar #como-conseguir #errores-frecuentes #faq #documentos-relacionados",
-      "spain_legal_context": "Use conservative phrasing: 'En España, normalmente…', 'Puede variar por municipio/CCAA…'. Do not invent official requirements.",
-      "no_promises": "If download is not available yet, label CTA as 'Recíbelo por email (próximamente)' and show COMING SOON state."
+    "stack": "FastAPI + Mongo + CRA React (JS) + Tailwind + shadcn/ui",
+    "scope": {
+      "languages": ["es", "ca", "en"],
+      "note": "Continuación/auditoría: mantener identidad visual aprobada (ink/ground/orange + Archivo/Inter). No introducir imágenes externas nuevas."
     },
-    "on_page_seo_checklist": {
-      "meta_title": "Format: '{Documento} en España: guía + descarga | DocuObra' (≤ ~60 chars)",
-      "meta_description": "Format: 'Qué es, cuándo se usa y cómo conseguirlo. Descárgalo (te lo enviamos por email). Guía práctica para obra.' (≤ ~155 chars)",
-      "url": "Keep existing localized slugs; ensure canonical per locale.",
-      "structured_data": [
-        "FAQPage JSON-LD for FAQ section",
-        "BreadcrumbList JSON-LD for docs hierarchy"
-      ],
-      "internal_linking": "Each doc page links to 3–6 related docs + ROI + pricing + home. Use descriptive anchor text.",
-      "content_depth": "Include: definition, when used, who signs, where to request, typical fields, common errors, FAQ.",
-      "performance": "Prefer text + existing assets; avoid heavy new media. Ensure headings render server/initial HTML where possible in CRA (no blocking spinners)."
-    }
-  },
-
-  "lead_magnet_download_flow": {
-    "placement_rules": {
-      "home": "Add a compact lead magnet block either (A) directly after ROI block or (B) within existing Docs area as a compact inline card. Do NOT add a huge new section.",
-      "document_pages": "Add top CTA 'Descárgate tu acta' that scrolls to inline form. Also show the same CTA as a sticky-in-card button inside the hero on mobile.",
-      "cta_anchor_id": "download-acta"
-    },
-    "form_requirements": {
-      "fields": [
-        {
-          "key": "email",
-          "type": "email",
-          "label_es": "Correo electrónico",
-          "label_en": "Email",
-          "required": true,
-          "data_testid": "leadmagnet-email-input"
-        },
-        {
-          "key": "documentType",
-          "type": "select",
-          "label_es": "Tipo de documento",
-          "label_en": "Document type",
-          "required": true,
-          "behavior": "On doc pages: preselect current document and lock (read-only display). On home: selectable.",
-          "data_testid": "leadmagnet-document-type-select"
-        },
-        {
-          "key": "processingConsent",
-          "type": "checkbox",
-          "label_es": "He leído y acepto que tratéis mi correo para enviarme el documento solicitado.",
-          "label_en": "I agree you may process my email to send me the requested document.",
-          "required": true,
-          "data_testid": "leadmagnet-processing-consent-checkbox"
-        },
-        {
-          "key": "marketingOptIn",
-          "type": "checkbox",
-          "label_es": "(Opcional) Quiero recibir novedades y recursos por email.",
-          "label_en": "(Optional) I want to receive updates and resources by email.",
-          "required": false,
-          "default": "unchecked",
-          "data_testid": "leadmagnet-marketing-optin-checkbox"
-        }
-      ],
-      "submit": {
-        "label_es": "Solicitar descarga",
-        "label_en": "Request download",
-        "data_testid": "leadmagnet-submit-button"
-      },
-      "states": {
-        "coming_soon": {
-          "rule": "If actual download/email delivery is not implemented, the submit must NOT pretend to send a file. It should store the request and show: 'Solicitud recibida. Te avisaremos cuando esté disponible.'",
-          "data_testid": "leadmagnet-coming-soon-state"
-        },
-        "success": {
-          "copy_es": "Solicitud recibida. Revisa tu correo cuando esté disponible. (Sin spam; puedes darte de baja si marcaste marketing.)",
-          "copy_en": "Request received. Check your email when it becomes available.",
-          "data_testid": "leadmagnet-success-message"
-        },
-        "error": {
-          "copy_es": "No se pudo enviar la solicitud. Inténtalo de nuevo.",
-          "copy_en": "Could not submit request. Please try again.",
-          "data_testid": "leadmagnet-error-message"
-        }
-      },
-      "inline_privacy_notice": {
-        "rule": "Keep conservative; do not invent legal entity. Use DocuSite contact info only.",
-        "copy_es": "Usaremos tu correo solo para gestionar esta solicitud. Responsable: DocuSite. Contacto: info@projectum.es. Puedes ejercer tus derechos solicitándolo por email. Consulta la política de privacidad.",
-        "copy_en": "We’ll use your email only to handle this request. Controller: DocuSite. Contact: info@projectum.es. You can exercise your rights by emailing us. See privacy policy.",
-        "data_testid": "leadmagnet-privacy-inline"
-      }
-    },
-    "backend_data_to_persist": {
-      "collection": "lead_magnet_requests",
-      "fields": [
-        "email",
-        "documentType",
-        "locale",
-        "sourcePath",
-        "processingConsent: true",
-        "marketingOptIn: boolean",
-        "consentVersion: string (e.g., 'v1')",
-        "consentTimestamp: ISO string",
-        "userAgent (optional)",
-        "ip (optional, if collected; be transparent)",
-        "status: 'requested'|'fulfilled'|'rejected'"
-      ],
-      "admin": {
-        "must_be_real": true,
-        "filters": ["documentType", "marketingOptIn", "date range", "locale"],
-        "export": "CSV export including consentVersion + consentTimestamp",
-        "data_testid": {
-          "table": "admin-leadmagnet-requests-table",
-          "export": "admin-leadmagnet-export-csv-button"
-        }
-      }
-    }
-  },
-
-  "ui_components_and_paths": {
-    "shadcn_components_to_use": [
-      { "name": "Button", "path": "/app/frontend/src/components/ui/button.jsx" },
-      { "name": "Card", "path": "/app/frontend/src/components/ui/card.jsx" },
-      { "name": "Input", "path": "/app/frontend/src/components/ui/input.jsx" },
-      { "name": "Label", "path": "/app/frontend/src/components/ui/label.jsx" },
-      { "name": "Select", "path": "/app/frontend/src/components/ui/select.jsx" },
-      { "name": "Checkbox", "path": "/app/frontend/src/components/ui/checkbox.jsx" },
-      { "name": "Accordion", "path": "/app/frontend/src/components/ui/accordion.jsx" },
-      { "name": "Alert", "path": "/app/frontend/src/components/ui/alert.jsx" },
-      { "name": "Badge", "path": "/app/frontend/src/components/ui/badge.jsx" },
-      { "name": "Breadcrumb", "path": "/app/frontend/src/components/ui/breadcrumb.jsx" },
-      { "name": "Separator", "path": "/app/frontend/src/components/ui/separator.jsx" },
-      { "name": "Sonner", "path": "/app/frontend/src/components/ui/sonner.jsx" }
-    ],
-    "custom_components_to_create_js": [
-      {
-        "name": "LeadMagnetInlineForm",
-        "path": "/app/frontend/src/components/LeadMagnetInlineForm.js",
-        "notes": "Props: locale, documentType (optional), lockedDocumentType (bool), variant ('compact'|'full'), onSubmitted. Must include data-testid on all interactive elements."
-      },
-      {
-        "name": "DocumentSeoFAQ",
-        "path": "/app/frontend/src/components/DocumentSeoFAQ.js",
-        "notes": "Renders FAQ accordion + emits FAQPage JSON-LD."
-      }
+    "hard_constraints": [
+      "NO rediseño total: solo correcciones de copy, SEO, accesibilidad, consistencia y UX.",
+      "Eliminar cualquier texto tipo [CONFIRMAR ...] o placeholders similares de la UI pública.",
+      "No inventar datos: sin testimonios, sin métricas, sin logos de clientes si no son reales.",
+      "Ocultar CTAs/enlaces sin destino real (app stores, registro, compra) en vez de dejarlos rotos.",
+      "No alterar flujos backend existentes que ya funcionen.",
+      "Todos los elementos interactivos y elementos informativos clave deben llevar data-testid (kebab-case).",
+      "Importes SIN IVA (mostrarlo explícitamente en pricing).",
+      "Planes de almacenamiento son MENSUALES.",
+      "Gratis: 3 actas por empresa al darse de alta (NO mensual).",
+      "Gratis: 1GB de almacenamiento por empresa (NO 'archivo de obra 1GB')."
     ]
   },
 
-  "visual_rules_preserve_brand": {
-    "palette_usage": {
-      "background": "Use warm paper bg (#F4F3EE) for page background.",
-      "surfaces": "Cards are white with border #E0DED6.",
-      "primary_cta": "Amber fill (#E39B1B) with navy text (#17243F).",
-      "links": "Navy text with underline on hover; avoid bright blue defaults.",
-      "no_new_tokens": "Do not introduce new global tokens overriding existing index.css HSL tokens."
+  "visual_personality": {
+    "keywords": [
+      "obra / dirección facultativa",
+      "editorial serio",
+      "alta legibilidad",
+      "confianza",
+      "conversión sin humo",
+      "mobile-first",
+      "sin gradients agresivos"
+    ],
+    "do_not_change": [
+      "Paleta base y tipografías ya definidas en /app/frontend/src/index.css (ink #14181C, ground #F4F2EE, orange #FF8A3D, Archivo/Inter).",
+      "Estructura general por bandas (ink/ground/surface) ya existente."
+    ]
+  },
+
+  "palette_exact_reference_from_brief": {
+    "tokens_hex": {
+      "ink": "#14181C",
+      "ground": "#F4F2EE",
+      "surface": "#FFFFFF",
+      "line": "#E2DED6",
+      "muted": "#4A525C",
+      "muted_dark": "#C9CDD2",
+      "accent": "#FF8A3D",
+      "accent_text": "#B8460A"
     },
-    "typography": {
-      "h1": "text-4xl sm:text-5xl lg:text-6xl font-heading tracking-tight",
-      "h2": "text-base md:text-lg text-muted-foreground",
-      "body": "text-sm sm:text-base text-foreground",
-      "doc_page_readability": "Max width for long text: `max-w-3xl` inside container; use `leading-relaxed` for paragraphs."
+    "usage_rules": [
+      "Mantener regla: nunca texto blanco sobre accent; usar ink.",
+      "Accent solo para CTA principal y highlights puntuales.",
+      "Nada de gradients oscuros/saturados; si se usa gradient, que sea decorativo y <20% viewport (ver reglas al final)."
+    ]
+  },
+
+  "typography": {
+    "fonts": {
+      "heading": "Archivo (800/900)",
+      "body": "Inter (400–700)"
     },
-    "buttons": {
-      "keep_existing_app_buttons": true,
-      "primary": "Use existing brand-button sizing; Tailwind: `brand-button bg-[color:var(--accent)] text-[color:var(--accent-foreground)] hover:bg-[hsl(var(--accent)/0.92)] transition-colors duration-200 active:scale-[0.98]`",
-      "secondary": "`brand-button bg-white border border-border text-foreground hover:bg-secondary transition-colors duration-200`"
+    "size_hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl",
+      "h2": "text-base md:text-lg (mantener constraint) + peso Archivo para jerarquía",
+      "body": "text-sm md:text-base",
+      "small": "text-xs to text-sm"
     },
+    "rules": [
+      "1 solo H1 por página.",
+      "Titulares siempre alineados a la izquierda (evitar centrado global).",
+      "Usar párrafos cortos (2–4 líneas) y listas para contenido SEO (mejor extracción por IA)."
+    ]
+  },
+
+  "components_to_use_shadcn": {
+    "component_path": {
+      "button": "/app/frontend/src/components/ui/button.jsx",
+      "card": "/app/frontend/src/components/ui/card.jsx",
+      "badge": "/app/frontend/src/components/ui/badge.jsx",
+      "accordion": "/app/frontend/src/components/ui/accordion.jsx",
+      "separator": "/app/frontend/src/components/ui/separator.jsx",
+      "sheet": "/app/frontend/src/components/ui/sheet.jsx",
+      "dialog": "/app/frontend/src/components/ui/dialog.jsx",
+      "input": "/app/frontend/src/components/ui/input.jsx",
+      "label": "/app/frontend/src/components/ui/label.jsx",
+      "tabs": "/app/frontend/src/components/ui/tabs.jsx",
+      "table": "/app/frontend/src/components/ui/table.jsx",
+      "breadcrumb": "/app/frontend/src/components/ui/breadcrumb.jsx",
+      "sonner": "/app/frontend/src/components/ui/sonner.jsx"
+    },
+    "component_behavior_overrides": [
+      "Pricing: usar Card + Table (si hace falta) para comparar almacenamiento; evitar texto ambiguo.",
+      "FAQ: Accordion con respuestas directas (primeras 1–2 frases responden la pregunta).",
+      "Navegación: Breadcrumb en guías SEO (mejora IA/SEO + UX)."
+    ]
+  },
+
+  "copy_and_pricing_corrections_binding": {
+    "global_find_and_fix": [
+      {
+        "must_remove": "Cualquier aparición de 'CONFIRMAR' o placeholders entre corchetes en UI pública",
+        "replacement_rule": "Si el dato no existe, eliminar la frase completa; no dejar huecos."
+      },
+      {
+        "must_fix": "'2 actas gratis cada mes'",
+        "replace_with": "'3 actas gratis por empresa al darse de alta'",
+        "notes": "Aclarar que es por alta (one-off), no mensual."
+      },
+      {
+        "must_fix": "'1 GB de archivo de obra'",
+        "replace_with": "'1GB de almacenamiento gratis por empresa'",
+        "notes": "Evitar confusión: es almacenamiento de documentación/fotos."
+      },
+      {
+        "must_fix": "Texto que diga o sugiera que no existe versión web",
+        "replace_with": "Eliminar la línea; sí existe versión web."
+      }
+    ],
+    "storage_plans_monthly_ex_vat": {
+      "disclaimer": "Todos los importes son mensuales y sin IVA.",
+      "plans": [
+        { "name": "Gratis", "storage": "1GB por empresa", "price": "0€", "period": "—" },
+        { "name": "Archivo 10GB", "storage": "10GB", "price": "9,90€", "period": "/mes" },
+        { "name": "Archivo 100GB", "storage": "100GB", "price": "29,90€", "period": "/mes" },
+        { "name": "Archivo 1TB", "storage": "1TB", "price": "79€", "period": "/mes" }
+      ],
+      "ui_rules": [
+        "Mostrar '/mes' junto al precio (no en tooltip).",
+        "Añadir 'sin IVA' cerca del precio (texto pequeño, muted).",
+        "Evitar claims tipo 'almacenamiento ilimitado' si no es real.",
+        "Si hay otros packs (bonos de actas), separar visualmente: Tabs (Actas vs Almacenamiento) o 2 bloques con headings claros."
+      ],
+      "data_testids": [
+        "pricing-storage-tab",
+        "pricing-actas-tab",
+        "pricing-storage-plan-10gb",
+        "pricing-storage-plan-100gb",
+        "pricing-storage-plan-1tb",
+        "pricing-storage-disclaimer"
+      ]
+    }
+  },
+
+  "seo_audit_and_ai_search_readiness": {
+    "goals": [
+      "Eliminar placeholders y copy incorrecto.",
+      "SEO técnico impecable: indexable, canonical, hreflang ES/CA.",
+      "Preparación para motores de IA: respuestas directas, estructura clara, schema consistente.",
+      "Rankear por: 'dirección de obra', 'dirección de ejecución de obra', 'actas de obra', 'acta de replanteo' y long-tail relacionadas."
+    ],
+    "page_level_rules": {
+      "titles": [
+        "Cada página: <title> único con keyword primaria + marca.",
+        "Meta description: 150–160 chars, orientada a intención (obra/actas/dirección facultativa)."
+      ],
+      "headings": [
+        "H1 único.",
+        "H2/H3 en formato pregunta cuando aplique (mejor para AI Overviews).",
+        "Primer párrafo bajo cada H2 debe responder directamente (1–2 frases)."
+      ],
+      "internal_linking": [
+        "En guías: añadir bloque 'Relacionado' al final con 3–5 enlaces internos (anchor descriptivo).",
+        "Desde Home: enlazar a 2 guías pilares nuevas/actualizadas: /direccion-de-obra y /direccion-de-ejecucion-de-obra (si existen rutas)."
+      ],
+      "multilingual": [
+        "ES y CA: URLs separadas y hreflang recíproco.",
+        "Traducir también: title, description, headings, FAQ y schema JSON-LD por idioma."
+      ]
+    },
+    "structured_data_jsonld": {
+      "required": [
+        "Organization (site-wide)",
+        "BreadcrumbList (en guías)",
+        "Article (en guías educativas)",
+        "FAQPage (solo donde haya FAQ visible real)",
+        "SoftwareApplication (solo si describe la plataforma; sin claims falsos)"
+      ],
+      "rules": [
+        "El schema debe reflejar exactamente el contenido visible.",
+        "Incluir author + datePublished + dateModified en guías (E-E-A-T).",
+        "No marcar FAQPage si no hay sección FAQ real en esa página."
+      ]
+    },
+    "content_clusters_recommended": {
+      "pillar_pages": [
+        {
+          "slug": "direccion-de-obra",
+          "primary_kw": "dirección de obra",
+          "sections": [
+            "Qué es dirección de obra (respuesta directa)",
+            "Qué incluye (lista)",
+            "Actas de obra: tipos y cuándo usarlas",
+            "Errores comunes y cómo evitarlos",
+            "FAQ"
+          ]
+        },
+        {
+          "slug": "direccion-de-ejecucion-de-obra",
+          "primary_kw": "dirección de ejecución de obra",
+          "sections": [
+            "Qué es DEO (respuesta directa)",
+            "Diferencias DO vs DEO (tabla)",
+            "Acta de replanteo: qué es y quién firma",
+            "Checklist descargable (si existe real)",
+            "FAQ"
+          ]
+        }
+      ],
+      "supporting_guides": [
+        "acta-de-replanteo",
+        "actas-de-obra",
+        "acta-de-visita-de-obra",
+        "modelo-acta-replanteo (solo si hay modelo real descargable)"
+      ]
+    }
+  },
+
+  "ux_quality_bar": {
+    "requirements": [
+      "Pricing sin ambigüedad: separar claramente 'actas' vs 'almacenamiento'.",
+      "Evitar fricción: si no hay URL real para compra/registro, no mostrar CTA; usar 'Contactar' si existe.",
+      "Microcopy de confianza: 'sin IVA', 'mensual', 'por empresa' siempre cerca del dato.",
+      "Accesibilidad: focus visible, targets >=44px, contraste AA.",
+      "Performance: evitar imágenes pesadas; si hay imágenes existentes, asegurar width/height y lazy-loading."
+    ],
     "micro_interactions": [
-      "Anchor CTA scroll: smooth scroll already enabled; ensure anchor target has scroll-margin-top.",
-      "Form submit: show loading state (Button disabled + spinner) and toast via Sonner.",
-      "Cards: `transition-[box-shadow,transform] duration-200` + subtle lift on hover (desktop only)."
-    ]
-  },
-
-  "testing_and_accessibility": {
-    "data_testid_policy": "All interactive + key informational elements MUST include data-testid (kebab-case, role-based).",
-    "required_testids": [
-      "document-hero-download-cta",
-      "document-download-form",
-      "leadmagnet-email-input",
-      "leadmagnet-document-type-select",
-      "leadmagnet-processing-consent-checkbox",
-      "leadmagnet-marketing-optin-checkbox",
-      "leadmagnet-submit-button",
-      "leadmagnet-success-message",
-      "leadmagnet-error-message"
-    ],
-    "a11y": [
-      "Checkbox labels must be clickable and clearly indicate required vs optional.",
-      "Do not rely on color alone for errors; show text + Alert.",
-      "Focus-visible ring must be present on inputs/buttons."
+      "Botones: hover con leve elevación (translateY -1px) + sombra; focus-visible ring ink.",
+      "Cards pricing: hover solo desktop (shadow-float suave).",
+      "Accordion: animación corta; mantener lectura cómoda."
     ]
   },
 
   "image_urls": {
-    "rule": "No new images requested; keep existing phone/app screenshot and sample viewer assets unchanged.",
-    "categories": []
+    "policy": "No añadir imágenes externas nuevas. Solo optimizar uso de assets existentes.",
+    "checks": [
+      "Verificar que todas las imágenes tienen alt descriptivo (ES/CA).",
+      "Evitar texto incrustado en imágenes para claims clave (mejor HTML).",
+      "Si hay capturas: usar <AspectRatio> y tamaños consistentes para evitar CLS."
+    ]
   },
 
   "instructions_to_main_agent": [
-    "Preserve ALL approved branding, ROI block placement, and existing app buttons/badges behavior (MOCKED store URLs remain honest).",
-    "Implement a compact lead magnet form on Home (after ROI or within Docs area) and on each document page (anchored by top CTA 'Descárgate tu acta').",
-    "Form must require processing consent checkbox + optional marketing opt-in unchecked by default; persist consentVersion + consentTimestamp.",
-    "No fake download: if delivery not implemented, store request and show COMING SOON messaging; do not email a file.",
-    "Add doc-specific SEO content structure: definition, steps, common errors, Spain context FAQ, related docs, internal links; add FAQPage + Breadcrumb JSON-LD.",
-    "Ensure better initial HTML: render headings and key copy without waiting for client-only effects; avoid content hidden behind spinners.",
-    "Admin must show captured emails as REAL data with filters and CSV export including consent fields."
+    "Aplicar correcciones de copy globales: 3 actas gratis por empresa al alta; 1GB almacenamiento gratis por empresa; eliminar cualquier [CONFIRMAR] y cualquier duda sobre versión web.",
+    "Actualizar sección de precios de almacenamiento: 10GB 9,90€/mes; 100GB 29,90€/mes; 1TB 79€/mes; todos sin IVA. Mostrarlo en cards claras.",
+    "Hacer barrido SEO: titles, meta descriptions, H1 único, headings en formato pregunta, enlaces internos, canonical/hreflang ES/CA.",
+    "Preparar SEO para motores de IA: respuestas directas al inicio de cada sección, listas/tablas, schema JSON-LD consistente (Organization/Article/FAQPage/BreadcrumbList).",
+    "Asegurar que no hay CTAs rotos: ocultar enlaces sin destino real.",
+    "Añadir/confirmar data-testid en: CTAs, tabs pricing, cards pricing, FAQ triggers, formularios, outputs clave."
   ],
 
-  "general_ui_ux_design_guidelines_appendix": "<General UI UX Design Guidelines>  \n    - You must **not** apply universal transition. Eg: `transition: all`. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms\n    - You must **not** center align the app container, ie do not add `.App { text-align: center; }` in the css file. This disrupts the human natural reading flow of text\n   - NEVER: use AI assistant Emoji characters like`🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons. Always use **FontAwesome cdn** or **lucid-react** library already installed in the package.json\n\n **GRADIENT RESTRICTION RULE**\nNEVER use dark/saturated gradient combos (e.g., purple/pink) on any UI element.  Prohibited gradients: blue-500 to purple 600, purple 500 to pink-500, green-500 to blue-500, red to pink etc\nNEVER use dark gradients for logo, testimonial, footer etc\nNEVER let gradients cover more than 20% of the viewport.\nNEVER apply gradients to text-heavy content or reading areas.\nNEVER use gradients on small UI elements (<100px width).\nNEVER stack multiple gradient layers in the same viewport.\n\n**ENFORCEMENT RULE:**\n    • Id gradient area exceeds 20% of viewport OR affects readability, **THEN** use solid colors\n\n**How and where to use:**\n   • Section backgrounds (not content backgrounds)\n   • Hero section header content. Eg: dark to light to dark color\n   • Decorative overlays and accent elements only\n   • Hero section with 2-3 mild color\n   • Gradients creation can be done for any angle say horizontal, vertical or diagonal\n\n- For AI chat, voice application, **do not use purple color. Use color like light green, ocean blue, peach orange etc**\n\n</Font Guidelines>\n\n- Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead. \n   \n- Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.\n\n- Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.\n   \n- Before generating UI, infer the visual style from the problem statement (palette, contrast, mood, motion) and immediately instantiate it by setting global design tokens (primary, secondary/accent, background, foreground, ring, state colors), rather than relying on any library defaults. Don't make the background dark as a default step, always understand problem first and define colors accordingly\n    Eg: - if it implies playful/energetic, choose a colorful scheme\n           - if it implies monochrome/minimal, choose a black–white/neutral scheme\n\n**Component Reuse:**\n\t- Prioritize using pre-existing components from src/components/ui when applicable\n\t- Create new components that match the style and conventions of existing components when needed\n\t- Examine existing components to understand the project's component patterns before creating new ones\n\n**IMPORTANT**: Do not use HTML based component like dropdown, calendar, toast etc. You **MUST** always use `/app/frontend/src/components/ui/ ` only as a primary components as these are modern and stylish component\n\n**Best Practices:**\n\t- Use Shadcn/UI as the primary component library for consistency and accessibility\n\t- Import path: ./components/[component-name]\n\n**Export Conventions:**\n\t- Components MUST use named exports (export const ComponentName = ...)\n\t- Pages MUST use default exports (export default function PageName() {...})\n\n**Toasts:**\n  - Use `sonner` for toasts\"\n  - Sonner component are located in `/app/src/components/ui/sonner.tsx`\n\nUse 2–4 color gradients, subtle textures/noise overlays, or CSS-based noise to avoid flat visuals.\n</General UI UX Design Guidelines>"
+  "appendix_general_ui_ux_design_guidelines": "<General UI UX Design Guidelines>  \n    - You must **not** apply universal transition. Eg: `transition: all`. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms\n    - You must **not** center align the app container, ie do not add `.App { text-align: center; }` in the css file. This disrupts the human natural reading flow of text\n   - NEVER: use AI assistant Emoji characters like`🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons. Always use **FontAwesome cdn** or **lucid-react** library already installed in the package.json\n\n **GRADIENT RESTRICTION RULE**\nNEVER use dark/saturated gradient combos (e.g., purple/pink) on any UI element.  Prohibited gradients: blue-500 to purple 600, purple 500 to pink-500, green-500 to blue-500, red to pink etc\nNEVER use dark gradients for logo, testimonial, footer etc\nNEVER let gradients cover more than 20% of the viewport.\nNEVER apply gradients to text-heavy content or reading areas.\nNEVER use gradients on small UI elements (<100px width).\nNEVER stack multiple gradient layers in the same viewport.\n\n**ENFORCEMENT RULE:**\n    • Id gradient area exceeds 20% of viewport OR affects readability, **THEN** use solid colors\n\n**How and where to use:**\n   • Section backgrounds (not content backgrounds)\n   • Hero section header content. Eg: dark to light to dark color\n   • Decorative overlays and accent elements only\n   • Hero section with 2-3 mild color\n   • Gradients creation can be done for any angle say horizontal, vertical or diagonal\n\n- For AI chat, voice application, **do not use purple color. Use color like light green, ocean blue, peach orange etc**\n\n</Font Guidelines>\n\n- Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead. \n   \n- Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.\n\n- Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.\n   \n- Before generating UI, infer the visual style from the problem statement (palette, contrast, mood, motion) and immediately instantiate it by setting global design tokens (primary, secondary/accent, background, foreground, ring, state colors), rather than relying on any library defaults. Don't make the background dark as a default step, always understand problem first and define colors accordingly\n    Eg: - if it implies playful/energetic, choose a colorful scheme\n           - if it implies monochrome/minimal, choose a black–white/neutral scheme\n\n**Component Reuse:**\n\t- Prioritize using pre-existing components from src/components/ui when applicable\n\t- Create new components that match the style and conventions of existing components when needed\n\t- Examine existing components to understand the project's component patterns before creating new ones\n\n**IMPORTANT**: Do not use HTML based component like dropdown, calendar, toast etc. You **MUST** always use `/app/frontend/src/components/ui/ ` only as a primary components as these are modern and stylish component\n\n**Best Practices:**\n\t- Use Shadcn/UI as the primary component library for consistency and accessibility\n\t- Import path: ./components/[component-name]\n\n**Export Conventions:**\n\t- Components MUST use named exports (export const ComponentName = ...)\n\t- Pages MUST use default exports (export default function PageName() {...})\n\n**Toasts:**\n  - Use `sonner` for toasts\"\n  - Sonner component are located in `/app/src/components/ui/sonner.tsx`\n\nUse 2–4 color gradients, subtle textures/noise overlays, or CSS-based noise to avoid flat visuals.\n</General UI UX Design Guidelines>"
 }

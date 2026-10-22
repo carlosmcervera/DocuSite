@@ -1,9 +1,4 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { useLanguage } from "@/i18n/LanguageContext";
-export const LanguageToggle = ({ className = "" }) => {
-  const { lang, setLang } = useLanguage();
-  return <div data-testid="language-toggle" role="group" aria-label="Language / Idioma" className={`inline-flex rounded-xl border border-border bg-secondary/60 p-0.5 ${className}`}>
-    {["es", "en"].map(value => <Button key={value} variant="ghost" data-testid={`language-toggle-${value}`} onClick={() => setLang(value)} aria-pressed={lang === value} className={`h-11 min-w-11 px-2 text-xs ${lang === value ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground" : "text-muted-foreground"}`}>{value.toUpperCase()}</Button>)}
-  </div>;
-};
+import React from 'react';
+import {Button} from '@/components/ui/button';
+import {useLanguage} from '@/i18n/LanguageContext';
+export const LanguageToggle=()=>{const {lang,setLang}=useLanguage();return <div role='group' aria-label='Idioma / Language' data-testid='language-toggle' className='flex gap-0.5'>{['es','ca','en'].map(v=><Button key={v} variant='ghost' data-testid={`language-toggle-${v}`} aria-pressed={v===lang} onClick={()=>setLang(v)} className={`h-11 min-w-11 px-2 text-xs ${v===lang?'bg-accent text-accent-foreground hover:bg-accent':'text-inherit hover:bg-white/10 hover:text-inherit'}`}>{v.toUpperCase()}</Button>)}</div>;};

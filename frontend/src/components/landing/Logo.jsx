@@ -1,5 +1,3 @@
-import React from "react";
-export const Logo = ({ className = "", onDark = false, showWord = true }) => <span className={`inline-flex items-center gap-2 ${className}`} aria-label="DocuSite">
-  <img src="/assets/brand/logo-512.png" width="40" height="40" alt="" aria-hidden="true" className="h-10 w-10 shrink-0" />
-  {showWord && <span className={`font-heading text-2xl tracking-tight ${onDark ? "text-primary-foreground" : "text-foreground"}`}>DocuSite</span>}
-</span>;
+import React from 'react';
+import { Mic } from 'lucide-react';
+export const Logo=({onDark=false,showWord=true,className=''})=><span className={`inline-flex items-center gap-2 ${className}`} aria-label='DocuSite'><span className='flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent text-accent-foreground'><Mic className='h-6 w-6' /></span>{showWord&&<span className={`font-heading text-xl sm:text-2xl font-extrabold tracking-tight ${onDark?'text-white':'text-foreground'}`}>DocuSite</span>}</span>;

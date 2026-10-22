@@ -1,223 +1,284 @@
-# plan.md — DocuSite (ES/EN) + Leads + Admin + SEO Content Cluster
+# plan.md — DocuSite (ES/CA/EN) + Leads + Admin + Brief-driven Landing (v7 — CIERRE FINAL “matrícula”)
+
+> **Fuente de verdad principal:** brief del usuario `docusite-web-brief-emergent.md` (estructura/orden/tono).
+> **Regla:** no resumir ni reescribir el texto del brief **salvo** overrides posteriores confirmados por el usuario.
+> **Overrides vinculantes (usuario, posteriores al brief):**
+> - La oferta gratuita **NO** es “2 actas gratis cada mes”. Es **3 actas gratis por empresa al darse de alta (una sola vez)**, **sin tarjeta**.
+> - **Sí existe versión web** → eliminar el placeholder y afirmar la disponibilidad.
+> - “1 GB” no es “archivo de obra”: es **1 GB de almacenamiento gratis por empresa**.
+> - Almacenamiento adicional (mensual, **sin IVA**): **10 GB 9,90 €/mes**, **100 GB 29,90 €/mes**, **1 TB 79 €/mes**.
+> - **Todos los importes de la plataforma son sin IVA** (debe indicarse donde aplique).
+> - Sustituir **todos** los `[CONFIRMAR]` en UI pública por respuestas confirmadas (offline, ruido, AWS/RGPD, colaboración y firmas). **No deben quedar placeholders**.
+>
+> **Nota de honestidad:** no se puede garantizar “primeras posiciones” ni citas en motores de IA; se hace SEO técnico/editorial “de matrícula” siguiendo prácticas oficiales (Google/OpenAI) y máxima calidad de contenido.
+
+---
 
 ## 1) Objectives
-- Mantener una web marketing premium y **bilingüe (ES/EN)** para **DocuSite** enfocada al sector AEC.
-- Arquitectura SEO por páginas (cluster):
-  - Home corta + hub de documentos.
-  - **1 página por documento** (5 documentos esenciales).
-  - Páginas específicas para secciones (cómo funciona, beneficios, ROI, casos de uso, precios, FAQ, contacto).
-- Captura de leads:
-  - Mantener **contacto/consultas**.
-  - Añadir y mantener un **lead magnet** (descarga/plantillas) para documentos.
-  - Persistencia en **MongoDB**.
-  - Panel **/admin** protegido por token para ver/filtrar/exportar leads.
-  - **Sin envío de emails todavía** (integración de email sigue pospuesta hasta credenciales y/o plantillas reales).
-- SEO realista y robusto:
-  - Titles/descriptions únicos por página e idioma, canonical/hreflang, sitemap/robots.
-  - JSON-LD **solo si coincide con contenido visible**.
-  - Evitar claims no verificables (p.ej. ratings/reviews inventados) y evitar promesas de ranking.
-  - Nota: no se puede garantizar “#1 en Google”, pero sí construir base sólida y medible.
 
-### Alineación con marca y activos reales ✅ (DONE)
-- Adaptar la web a los **activos aportados por el usuario**:
-  - Logo definitivo.
-  - 2 páginas de ejemplo de documento generado (autorizadas, con nombres/firmas ficticias).
-  - Pantallazo real de la app.
-  - Guía de estilo exacta.
-- UI según guía (colores/tipografías/componentes):
-  - Paleta aplicada (navy #17243F, amber #E39B1B, bg #F4F3EE).
-  - Tipos aplicados: Cabinet Grotesk + Satoshi locales.
+- Mantener una web marketing premium para **DocuSite** enfocada al sector AEC.
+- Landing completa en **`/es`, `/ca`, `/en`** con **misma estructura y contenido** (traducido, no resumido), alineada a los overrides.
+- **Conversión primaria:** activar interés (descarga/registro/compra) **solo si hay URLs reales**; si no, se **ocultan** CTAs de descarga/registro/compra.
+- **Conversión secundaria:** descarga del **acta real de ejemplo (PDF, 2 páginas)** con **PDF gate** (email + consentimiento de tratamiento obligatorio; comercial opcional).
+- Mensaje central: *el acta se cierra en la obra* + seguimiento de acuerdos (responsable/plazo/estado).
+- Diferenciación: otras apps transcriben; DocuSite **redacta actas** y **hace seguimiento**.
 
-### Copy — Estilo Alex Hormozi (sin humo) ✅ (DONE)
-- Copy directo, frases cortas, claro.
-- Valor por componentes (“qué te llevas”) y fricción mínima.
-- Oferta aprobada: **“Los primeros 3 documentos gratis”**.
-- Activación real del free trial (solo en la app): **validación de teléfono + correo**.
-- Importante: esta web es **marketing + captura de interés**, no genera documentos ni activa créditos.
+### SEO realista, robusto y preparado para motores de IA
+- Objetivo: base técnica/editorial impecable para España; **no se puede prometer #1**.
+- **Un H1 por página**, titles/descriptions únicos, canonical, sitemap, robots.
+- `hreflang`: **ES/CA/EN** (+ `x-default`).
+- Datos estructurados (fieles a contenido visible):
+  - `Organization`, `WebSite`, `WebPage`/`CollectionPage`
+  - `BreadcrumbList`
+  - `Article` en guías y páginas tipo guía
+  - `FAQPage` solo cuando exista FAQ visible
+  - `SoftwareApplication` y `Service/Offer` solo donde aplique (home/precios) y con precios **sin IVA**.
+- Contenido orientado a extracción por IA:
+  - respuestas directas al inicio de secciones,
+  - listas/tablas/checklists,
+  - fuentes citadas (BOE/Normativa cuando aplique),
+  - enlazado interno tipo clúster (actas de obra, acta de replanteo, DO/DEO, etc.).
 
-### Pivot aprobado — Conversión principal: descarga/registro en la app (contacto secundario) ✅ (DONE)
-- Objetivo principal: **descargar la app (App Store / Google Play) o registrarse**.
-- Contacto queda como opción secundaria (en /es/contacto y /en/contact).
-- Flujo interno ultra simple:
-  1) Configura tu empresa (**invita a todo tu equipo sin límite**)
-  2) Crea una obra con sus datos
-  3) Pulsa **“Nuevo Documento”**, eliges el tipo y empiezas a hacer fotos
-- Enlaces: por ahora **placeholders** (sin URLs reales), con diálogo honesto “enlace pendiente”.
-
-### ROI económico “tiempo → €” en Home + Badges oficiales ✅ (DONE)
-- Promover /roi en la Home (ES/EN).
-- Supuestos confirmados por el usuario (como estimación, no garantía):
-  - **Coste hora técnico**: 45 €/hora
-  - **Ahorro estimado por documento**: 1,5 horas
-  - Valor estimado: **67,50 €/documento**
-- Implementación:
-  - Home incluye calculadora ROI inmediatamente tras el Hero.
-  - /roi mantiene versión completa con fórmula, disclaimers y comparativa por paquetes.
-- Badges oficiales de App Store / Google Play incorporados (imágenes del usuario), manteniendo placeholder.
-
-### SEO fuerte para páginas de documentos + Lead magnet “Descárgate tu acta” ✅ (DONE)
-- Prioridad SEO: **España**, manteniendo versiones en inglés.
-- Cada documento tiene guía específica ES/EN con:
-  - Definición útil.
-  - Cuándo usarla.
-  - **Checklist de 6 campos**.
-  - **4 pasos** de preparación.
-  - Errores frecuentes.
-  - Ejemplo y FAQ propia.
-  - Contexto España con referencias al BOE cuando aplica (sin presentarlo como asesoría legal).
-  - Interlinking: documento ↔ hub ↔ cómo funciona ↔ ROI ↔ precios.
-- Lead magnet:
-  - CTA en Home y en cada documento: **“Descárgate tu acta / informe”**.
-  - Captura de **email** + **tipo de documento**.
-  - Consentimiento de tratamiento (obligatorio) + consentimiento comercial opcional (no marcado).
-  - Mensaje honesto: **“Plantilla próximamente disponible”**; se guarda la solicitud pero **no hay archivo** ni **envío por email** todavía.
-
-### NUEVO: SEO técnico — HTML inicial completo para crawlers (sin cloaking) ✅ (DONE)
-- Se identificó el problema: HTML inicial con root vacío (CSR).
-- Solución implementada:
-  - **Render estático de las 28 rutas públicas (ES/EN)** desde los **mismos componentes React** (sin texto oculto y sin contenido distinto por user-agent).
-  - Implementado con esbuild + renderToString en build, emitiendo `/ruta/index.html` para cada ruta.
-  - En preview/dev se sirve HTML inicial legible vía middleware (manteniendo React client-side para interacción).
-  - Head (title/meta/canonical/hreflang/JSON-LD) centralizado en helper compartido para evitar divergencias SSR/CSR.
-
----
-
-## 2) Implementation Steps
-
-### Phase 1 — Core Workflow (No POC Needed) ✅ (DONE)
-Core CRUD + protección básica para admin; sin integraciones externas.
-- Contrato de datos de leads.
-- Protección admin v1: token estático **ADMIN_TOKEN** via header.
-- Estructura: `/admin` dashboard, endpoints `/api/...`.
-
-**User stories (Phase 1)** ✅
-1. Como visitante, puedo enviar una consulta y ver confirmación.
-2. Como admin, puedo ver leads con timestamps.
-3. Como admin, puedo buscar/filtrar leads.
-4. Como admin, puedo abrir detalle de lead.
-5. Como admin, puedo exportar leads a CSV.
-
-### Phase 2 — V1 App Development (Frontend + Backend in one go) ✅ (DONE)
-- Landing inicial completa (luego transformada a cluster SEO).
-- Admin UI.
-- Backend endpoints.
-- SEO base.
-
-### Phase 2.5 — Testing (testing_agent_v3) ✅ (DONE)
-- E2E automatizado completado en múltiples iteraciones.
-- Harness corregido:
-  - Portabilidad: lectura de variables desde `.env`.
-  - Sin logging de token.
-  - Pruebas aisladas (anti-spam/rate limit) usando IPs reservadas por POST en el harness.
-- Validación con build/py_compile.
-
----
-
-### Phase 3 — SEO Content Cluster + Routing + Copy Rewrite ✅ (DONE)
-**Objetivo:** pasar de landing larga a **home corta + páginas SEO**.
-- Rutas bilingües indexables `/es/...` y `/en/...`.
-- Hub + 5 páginas de documento con contenido propio.
-- Páginas de secciones (cómo, beneficios, ROI, casos, precios, FAQ, contacto).
-- SEO por página: title/description/canonical/hreflang + sitemap/robots.
-
----
-
-### Phase 3.5 — Brand Alignment + Offer Layer ✅ (DONE)
-- Logo oficial.
-- Captura real de app.
-- Visor del ejemplo (2 páginas) con zoom/descarga.
-- Tokens según guía.
-- Copy de oferta/bundle sin claims falsos.
-
----
-
-### Phase 3.6 — Self-Serve Conversion Layer ✅ (DONE)
-**Objetivo:** conversión principal a descarga/registro.
-- CTA principal: **Crear cuenta** + badges.
-- Placeholders sin URL real: modal honesto.
-- Contacto secundario:
-  - `/es/contacto` y `/en/contact`.
-  - Redirect legacy desde `/demo` preservando query.
-- Home sin formulario embebido.
-- “Cómo funciona” en 3 pasos.
-
----
-
-### Phase 3.7 — ROI económico + Badges oficiales ✅ (DONE)
-- Home: ROI inmediato tras Hero.
-- /roi: inputs (docs/mes, horas/doc, €/h) + fórmula + comparativa + disclaimers.
-- Badges oficiales incorporados, con placeholder.
-
----
-
-### Phase 5 — SEO avanzado para 5 documentos + Lead magnet de descarga ✅ (DONE)
-
-#### 5.1 SEO por documento (España primero)
-- Contenido ampliado por documento ES/EN con estructura consistente (H1 único, H2/H3 coherentes):
-  - Definición, checklist (6 items), pasos (4), errores, ejemplo, FAQ.
-  - Contexto España con referencias BOE cuando aplica.
-  - Interlinking interno.
-
-#### 5.2 Lead magnet: “Descárgate tu acta” (sin documentos aún)
-- CTA y sección de solicitud en Home y en cada documento.
-- Formulario:
-  - Email obligatorio.
-  - Consentimiento de tratamiento obligatorio.
-  - Consentimiento comercial opcional (no marcado).
-  - Documento preseleccionado en la página de documento.
-- Mensajería honesta:
-  - “Plantilla próximamente disponible”.
-  - “Solicitud guardada; aún no hay archivo; no se enviará email automático.”
-
-#### 5.3 Backend/DB/Admin para lead magnet
-- Nuevo endpoint real: `POST /api/download-requests`:
-  - `email`, `document_request` (enum 5 docs), `language`, `consent` (StrictBool), `marketing_opt_in` (StrictBool), `source_path` (sin query/hash), honeypot.
-  - Persistencia en colección `leads` con:
-    - `lead_type=download_request`, `document_request`, `marketing_opt_in`.
-    - Evidencia de consentimiento: `consent_version`, `consented_at` (UTC), `consent_text`, `marketing_consent_text`, `source_path`.
-  - Respuesta sin PII: `id`, `status=requested`, `download_available=false`, `email_sent=false`.
+### Captura de leads
+- Mantener:
+  - **Contacto para equipos**.
+  - **PDF gate** para el ejemplo (consentimiento obligatorio + marketing opcional, desmarcado).
 - Admin:
-  - Filtros por tipo (`contact` vs `download_request`), documento, marketing.
-  - Detalle con evidencia de consentimientos y aviso de entrega no disponible.
-  - CSV filtrable con mismas condiciones que el listado.
-  - Endurecimiento: escape literal de búsqueda (regex) y escape anti-formula en CSV.
-
-#### 5.4 SEO técnico (mejor crawlabilidad)
-- Implementado prerender estático para **todas las 28 rutas públicas**, incluyendo:
-  - `<title>`, meta description, canonical, hreflang, schema y **contenido visible** en HTML inicial.
-  - 404 con noindex; /admin noindex; redirects legacy.
-  - Sin cloaking: mismo contenido para todos los user agents (misma renderización React).
+  - Ver, filtrar y exportar leads.
+  - Auditar consentimiento (texto/fecha/versión) y origen.
+- Email delivery/notificaciones: **pospuesto** hasta credenciales.
 
 ---
 
-## 3) Next Actions (Backlog)
-1. Conectar URLs reales de:
-   - Registro web.
-   - App Store.
-   - Google Play.
-2. Subir las **plantillas reales** (Word/PDF) y definir su entrega:
-   - Descarga directa (tras submit) o
-   - Envío por email (cuando haya proveedor configurado).
-3. Integración de email (SendGrid u otro) para:
-   - Notificar a **info@projectum.es** nuevas solicitudes.
-   - (Futuro) Entrega real de plantillas.
-4. (Opcional recomendado) páginas dedicadas: **Privacidad** y **Términos** (si se va a hacer captación intensiva y campañas).
-5. (Opcional) métricas:
-   - Search Console + GA4/Matomo.
-   - Eventos: clicks en CTAs de plantillas, creación de solicitudes, opt-in comercial.
+## 2) NEW LATEST USER BRIEF — Binding Requirements (impacto en la web actual)
 
-## 4) Success Criteria (Estado actual)
-- SEO documentos ✅
-  - Cada documento responde a su intención de búsqueda con contenido útil y diferenciado (ES/EN).
-  - Titles/descriptions, H1/H2, interlinking y schema correctos.
-- Lead magnet ✅
-  - CTAs “Descárgate tu acta” en home y documentos.
-  - Email + tipo doc guardado en MongoDB y visible/filtrable en /admin.
-  - Mensajería honesta: no descarga real ni email automático hasta disponer de archivos/credenciales.
-  - Opt-in comercial opcional guardado con evidencia (texto/version/fecha).
-- Técnico ✅
-  - Sitemap actualizado.
-  - Canonical/hreflang consistentes.
-  - HTML inicial legible y completo para crawlers en las 28 rutas públicas.
-- Testing ✅
-  - `testing_agent_v3` pasa journeys críticos (iteraciones 5–7 completadas; suites 23/23 y 57/57 + verificación browser/no-JS).
+### 2.1 Cambios obligatorios vs web anterior
+1. Eliminar “próximamente / pendiente de conectar” y CTAs ficticios.
+2. Reducir advertencias repetidas: **una sola** advertencia (FAQ).
+3. “Cómo funciona”: **no** empezar por “Configura tu empresa”.
+4. Sustituir H1 por el del brief.
+5. Sustituir tabla de precios anterior por la sección 5.10.
+
+### 2.2 Nuevo sistema visual (sustituye el anterior)
+- Colores: `--ink #14181C`, `--ground #F4F2EE`, `--surface #FFFFFF`, `--line #E2DED6`, `--muted #4A525C`, `--muted-dark #C9CDD2`, `--accent #FF8A3D`, `--accent-text #B8460A`.
+- Regla: **nunca** texto blanco sobre `--accent`; siempre `--ink`.
+- Tipografías: **Archivo** (800/900) + **Inter** (400–700).
+- Layout: ancho máx 1200 px, secciones 96 px desktop / 64 px móvil, alternar bandas.
+
+### 2.3 Estructura y copy (literal)
+- Implementar secciones 5.1–5.14 exactamente, **salvo overrides confirmados**.
+- No deben quedar `[CONFIRMAR]` visibles en UI pública.
+- Testimonios: solo reales; si no existen, ocultos.
+
+### 2.4 Idiomas
+- `/es` primero.
+- `/ca` y `/en` con el mismo contenido traducido (no resumido).
+
+---
+
+## 3) Estado / Progress (hasta ahora)
+
+### 3.1 Baseline anterior ✅
+- Admin dashboard, Mongo persistence.
+- SEO base (canonical/hreflang/sitemap/robots).
+- ROI económico en home.
+- Renderizado estático (HTML inicial con contenido) para rutas públicas.
+- Testing en varias iteraciones (histórico).
+
+### 3.2 Brief-driven landing ✅
+- Nueva identidad visual aplicada (ink/ground/accent, Archivo/Inter).
+- Landing en ES/CA/EN con secciones 5.1–5.14.
+- URLs limpias por documento (ES/CA/EN) + 301 desde slugs antiguos.
+- CTAs sin URL real (tiendas/registro/compra) ocultos.
+- PDF real de ejemplo (2 páginas) generado y servido.
+- PDF gate funcional + analítica first-party + panel en `/admin`.
+
+### 3.3 Confirmaciones recientes del usuario ✅ (aplicadas en copy)
+- Funciona **sin cobertura**.
+- Funciona **con ruido de obra**.
+- Existe **versión web** (más extendida para configuraciones detalladas).
+- Datos y fotos en **Amazon (AWS)** y se **cumple RGPD** (sin inventar región/certificaciones).
+- Colaboración ampliada + firma:
+  - Invitar a **constructora** (actualiza acuerdos/incidencias/órdenes DF).
+  - Histórico por elemento y actualización automática al acta siguiente.
+  - Invitar al **cliente** para consultar actas.
+  - Envío a firma desde la app; firma desde móvil o web por todos.
+
+### 3.4 Cambios críticos de pricing/copy (overrides) ✅
+- Oferta gratuita: **3 actas gratis por empresa al darse de alta** (una única vez), **sin tarjeta**.
+- Almacenamiento gratuito: **1 GB por empresa**.
+- Almacenamiento adicional (mensual, sin IVA): **10 GB 9,90 €/mes; 100 GB 29,90 €/mes; 1 TB 79 €/mes**.
+- Separación visual: packs de actas vs almacenamiento mensual.
+
+### 3.5 Limpieza de placeholders ✅
+- Eliminados `[CONFIRMAR]/[CONFIRM]` en UI pública.
+- Páginas legales públicas sin placeholders (sin inventar razón social/NIF/domicilio/retenciones).
+
+### 3.6 Phase 10 implementada ✅
+- **Nuevas guías pilares DO/DEO** creadas (ES/CA/EN) con fuentes BOE (LOE arts. 11–13, etc.).
+- Catálogo de documentos enriquecido y enlazado interno (documentos ↔ guías).
+- Metadatos reforzados (titles/descriptions únicos por página).
+- Schema JSON-LD ampliado y coherente (Organization/WebSite/WebPage/BreadcrumbList/Article/FAQ/SoftwareApplication/Service+Offers donde aplica).
+- OG/Twitter reforzados + **3 social cards** locales `social-es/ca/en.png` (1200×630).
+- `robots.txt` actualizado con reglas explícitas para bots de búsqueda IA **sin bloquear contenido público** (manteniendo `Disallow /admin /api`).
+- `sitemap.xml` actualizado a **57 rutas públicas**.
+- UX/A11y: mejoras de navegación (documentos en navbar), targets táctiles, foco visible, comparación responsive.
+- Admin: carga lazy del panel para reducir carga inicial.
+- Fuentes variables deduplicadas (una descarga por familia 100–900).
+- CSS inicial render-blocking también en preview (evita FOUC/CLS en guías) manteniendo HMR.
+
+### 3.7 Testing realizado ✅ (cierre final)
+- `testing_agent_v3` iteración 10: **28/28 backend OK** + **57 rutas** OK.
+- `testing_agent_v3` iteración 11: Lighthouse móvil REAL (preview) inicial + auditorías enlaces/OG/móvil; se detectaron contraste y CLS (preview).
+- `testing_agent_v3` iteración 12 (regresión final):
+  - Lighthouse móvil REAL (preview):
+    - Home: a11y **100**, perf **71**, LCP **2,1 s**, CLS **0**.
+    - Guía DO: a11y **100**, perf **76**, LCP **2,3 s**, CLS **0**.
+  - SEO: **93/92** con **único fallo externo**: cabecera `X-Robots-Tag: noindex, nofollow` del entorno preview (infraestructura). **No es defecto de la app** y **no se ha intentado resolver**.
+  - Best Practices: penalización por scripts Cloudflare externos (deprecations), no atribuible a la app.
+  - Anclas: **474** enlaces con `#` verificados (204 same-page + 270 cross-page), sin roturas.
+  - Recursos: fuentes CSS 200 OK, OG PNG 1200×630 200 OK.
+  - Nota: un apunte de “missing data-testid” fue **falso positivo**; se verificó en código y Playwright.
+- Build final:
+  - `yarn build` OK; prerender **57 páginas**.
+  - Main JS gzip: **218,43 KB**.
+
+Documentación actualizada:
+- `/app/memory/PRD.md` actualizado y **sustituye** lo histórico obsoleto.
+- `/app/memory/seo-ux-audit.md` creado con métricas, evidencias y limitaciones.
+
+---
+
+## 4) Implementation Steps (revisado)
+
+### Phase 9 — Correcciones vinculantes de copy/precios + limpieza de placeholders ✅ (COMPLETADO)
+
+#### 9.1 Oferta gratuita (alta) ✅
+- Sustituido “2 actas gratis cada mes” → “3 actas gratis por empresa al darse de alta (una única vez) · Sin tarjeta”.
+- Ajustado hero, pricing, cierre, metadatos.
+
+#### 9.2 Confirmaciones de producto ✅
+- Offline/ruido/web/AWS+RGPD/colaboración+firmas reflejadas en “Cómo funciona” + FAQ.
+
+#### 9.3 Precios almacenamiento mensual + sin IVA ✅
+- 1 GB gratis por empresa + 10/100/1TB mensual (sin IVA).
+- Separación visual clara.
+
+#### 9.4 Legal placeholders ✅
+- Eliminados placeholders visibles sin inventar datos.
+
+---
+
+### Phase 10 — SEO/IA + UX “matrícula” ✅ (COMPLETADO)
+
+> **Nota de alcance realista:** optimización máxima técnica/editorial/UX sin garantía de rankings ni citas IA.
+
+#### 10.1 Auditoría y hardening SEO técnico (rutas actuales) ✅
+- Cobertura: **57 rutas públicas** (19 × 3 idiomas).
+- Implementado y verificado:
+  - 1 H1 y jerarquía limpia.
+  - Titles/descriptions únicos.
+  - Canonical correcto.
+  - `hreflang` recíproco + `x-default`.
+  - HTML inicial prerender sin depender de JS.
+  - OG/Twitter coherentes con social cards locales.
+  - Schema JSON-LD fiel al contenido visible.
+
+#### 10.2 SEO para motores de IA (sin “trucos”) ✅
+- Enfoque aplicado:
+  - indexabilidad estándar + contenido útil y estructurado.
+  - listas/checklists/definiciones y citas a fuentes oficiales.
+- `robots.txt` preparado para rastreo (incluyendo bots de búsqueda IA) sin exponer admin/API.
+
+#### 10.3 Guías pilares DO/DEO (ES/CA/EN) ✅
+- 6 rutas añadidas y enlazadas desde landing, catálogo y footer.
+- Fuentes BOE enlazadas; avisos de alcance (no sustituye asesoramiento).
+
+#### 10.4 Contenido SEO para keywords objetivo (España) ✅
+- Contenido y enlaces orientados a:
+  - dirección de obra,
+  - dirección de ejecución de obra,
+  - actas de obra,
+  - acta de replanteo,
+  - etc.
+- Eliminado “template coming soon / próximamente” en copy público (sin prometer materiales inexistentes).
+
+#### 10.5 UX/A11y/Imagen/Performance ✅
+- Navegación mejorada y enlaces internos (documentos/guías).
+- Accesibilidad:
+  - foco visible;
+  - slider ARIA y target táctil;
+  - breadcrumbs táctiles ≥44 px;
+  - animaciones sin degradar contraste;
+  - soporte `prefers-reduced-motion`.
+- Performance en preview:
+  - CSS render-blocking y fuentes deduplicadas para evitar FOUC/CLS.
+- Evidencias: Lighthouse real y auditorías de enlaces/anclas/recursos.
+
+---
+
+### Phase 11 — Testing, build y verificación final ✅ (COMPLETADO)
+
+#### 11.1 Retest tras fixes (Lighthouse/a11y/CLS) ✅
+- Ejecutado y documentado en `iteration_12.json` + Lighthouse final.
+
+#### 11.2 Build producción ✅
+- `yarn build` final OK y prerender: **57 páginas**.
+
+#### 11.3 Revalidación SEO end-to-end ✅
+- Verificado:
+  - canonical/hreflang/og/schema;
+  - OG social cards accesibles;
+  - `sitemap.xml` + `robots.txt` correctos;
+  - 474 enlaces con ancla válidos.
+
+> **Nota clave:** el entorno preview puede marcar `noindex` por infraestructura. No se ha verificado indexación real; esto corresponde a la fase de publicación en dominio final.
+
+#### 11.4 Documentación ✅
+- PRD actualizado (`/app/memory/PRD.md`) y auditoría SEO/UX creada (`/app/memory/seo-ux-audit.md`).
+
+---
+
+## 5) Next Actions (Backlog)
+
+1. Usuario facilita URLs reales:
+   - App Store
+   - Google Play
+   - Registro web
+   - Checkout packs (si aplica)
+2. Completar datos legales antes de publicación definitiva (fuera del alcance de inventar):
+   - Razón social/NIF/domicilio
+   - Plazos de conservación / encargados / transferencias
+3. Testimonios y cifras reales (para habilitar prueba social).
+4. Email notifications a `info@projectum.es` (pospuesto hasta credenciales).
+5. Verificación de indexabilidad real en el **dominio definitivo** (no en preview), incluyendo:
+   - ausencia de `X-Robots-Tag: noindex` en rutas públicas,
+   - Search Console / sitemaps / cobertura.
+
+---
+
+## 6) Success Criteria (estado actual vs brief)
+
+### Baseline ✅
+- Admin y BD funcionando.
+- HTML inicial con contenido.
+
+### Brief-driven ✅
+- Landing ES/CA/EN implementada.
+- PDF de ejemplo descargable con email gate.
+- Analítica interna.
+- 301 y slugs de documentos.
+- Oferta correcta “3 actas gratis por empresa al alta (one-off)”.
+- Almacenamiento “1 GB/empresa + planes mensuales 10/100/1TB” + “sin IVA”.
+- 0 placeholders “CONFIRMAR/CONFIRM” en UI pública.
+
+### SEO/IA + UX ✅
+- 57 rutas públicas + guías DO/DEO + enlazado clúster.
+- Metadatos únicos + schema/OG/hreflang/canonical/sitemap/robots.
+- Auditoría completa de enlaces/anclas/recursos.
+- Lighthouse real (preview) con mejoras verificadas (a11y 100 y CLS 0 en home y guía).
+
+### Limitaciones reconocidas (no bugs) ✅
+- El entorno preview está marcado `noindex` por infraestructura: no indexable por diseño.
+- Best Practices penaliza scripts de Cloudflare externos.
+- Sin garantía de ranking; falta verificación en dominio final.

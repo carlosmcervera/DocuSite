@@ -11,7 +11,10 @@ from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr, StrictBool
 from typing import List, Optional, Dict, Literal
 import uuid
-from datetime import datetime, timezone
+from fastapi.responses import FileResponse
+from datetime import datetime, timezone, timedelta
+import secrets
+import hashlib
 
 
 ROOT_DIR = Path(__file__).parent
@@ -22,7 +25,7 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-ADMIN_TOKEN = os.environ.get('ADMIN_TOKEN', 'DocuSite2026-Admin')
+ADMIN_TOKEN = os.environ.get('ADMIN_TOKEN', '')
 
 # Create the main app without a prefix
 app = FastAPI(title="DocuSite API")
@@ -113,10 +116,12 @@ class LeadOut(BaseModel):
 DocumentKey = Literal["setting", "visit", "photos", "snagging", "completion"]
 CONSENT_VERSION = "template-request-v1"
 CONSENT_TEXT = {
+    "ca": "Accepto que DocuSite tracti el meu correu per gestionar aquesta sol·licitud de plantilla.",
     "es": "Acepto que DocuSite trate mi correo para gestionar esta solicitud de plantilla.",
     "en": "I agree that DocuSite may process my email to handle this template request.",
 }
 MARKETING_TEXT = {
+    "ca": "Opcional: vull rebre consells i ofertes de DocuSite per email. Puc retirar el permís quan vulgui.",
     "es": "Opcional: quiero recibir consejos y ofertas de DocuSite por email. Puedo retirar mi permiso cuando quiera.",
     "en": "Optional: I want to receive DocuSite tips and offers by email. I can withdraw my permission at any time.",
 }
@@ -126,10 +131,11 @@ class DownloadRequestCreate(BaseModel):
     model_config = ConfigDict(extra="forbid")
     email: EmailStr
     document_request: DocumentKey
-    language: Literal["es", "en"] = "es"
+    language: Literal["es", "ca", "en"] = "es"
     consent: StrictBool = False
     marketing_opt_in: StrictBool = False
     source_path: str = Field("/", max_length=300, pattern=r"^/[^?#]*$")
+    asset: Optional[Literal['sample_acta']] = None
     website: Optional[str] = Field(None, max_length=300)
 
 
@@ -138,6 +144,8 @@ class DownloadRequestOut(BaseModel):
     status: Literal["requested"] = "requested"
     download_available: bool = False
     email_sent: bool = False
+    download_url: Optional[str] = None
+    expires_at: Optional[datetime] = None
 
 
 class LeadStatusUpdate(BaseModel):
@@ -200,6 +208,42 @@ async def require_admin(x_admin_token: Optional[str] = Header(None)):
     return True
 
 
+
+class EventCreate(BaseModel):
+    model_config=ConfigDict(extra='forbid')
+    name: Literal['cta_click','store_click','pdf_open','pdf_submit','pdf_download','calculator_use','faq_open','teams_contact','scroll_depth']
+    section: str = Field(max_length=100,pattern=r'^[a-zA-Z0-9_-]+$')
+    path: str = Field(max_length=200,pattern=r'^/[a-zA-Z0-9/_-]*$')
+    language: Literal['es','ca','en']
+    value: int = Field(0,ge=0,le=200)
+
+
+class EventReceipt(BaseModel):
+    recorded: bool=True
+
+
+class EventSummary(BaseModel):
+    name: str
+    section: str
+    count: int
+
+
+@api_router.post('/events',response_model=EventReceipt,status_code=202)
+async def record_event(payload: EventCreate):
+    if payload.path=='/admin':
+        return EventReceipt(recorded=False)
+    day=datetime.now(timezone.utc).date().isoformat()
+    group={'day':day,**payload.model_dump()}
+    await db.analytics.update_one(group,{'$inc':{'count':1},'$setOnInsert':{'id':str(uuid.uuid4())}},upsert=True)
+    return EventReceipt()
+
+
+@api_router.get('/admin/analytics',response_model=List[EventSummary])
+async def event_summary(_:bool=Depends(require_admin)):
+    rows=await db.analytics.aggregate([{'$group':{'_id':{'name':'$name','section':'$section'},'count':{'$sum':'$count'}}},{'$sort':{'count':-1}},{'$limit':200}]).to_list(200)
+    return [EventSummary(name=r['_id']['name'],section=r['_id']['section'],count=r['count']) for r in rows]
+
+
 # ----------------------------------------------------------------------------
 # Public routes
 # ----------------------------------------------------------------------------
@@ -247,8 +291,13 @@ async def create_lead(payload: LeadCreate, request: Request):
     doc = lead.model_dump()
     doc["created_at"] = doc["created_at"].isoformat()
     await db.leads.insert_one(doc)
-    logger.info(f"New lead captured: {lead.email} ({lead.company})")
+    logger.info('Contact enquiry stored')
     return LeadOut(**lead.model_dump())
+
+
+SAMPLE_PATH = ROOT_DIR / 'assets' / 'docusite-acta-ejemplo.pdf'
+SAMPLE_PROCESSING = {'es':'Acepto que DocuSite trate mi correo para facilitarme el acta de ejemplo.','ca':'Accepto que DocuSite tracti el meu correu per facilitar-me l’acta d’exemple.','en':'I agree that DocuSite may process my email to provide the sample record.'}
+SAMPLE_MARKETING = {'es':'Quiero recibir consejos y ofertas de DocuSite por email. Puedo retirar mi permiso cuando quiera. (Opcional)','ca':'Vull rebre consells i ofertes de DocuSite per email. Puc retirar el meu permís quan vulgui. (Opcional)','en':'I want to receive DocuSite tips and offers by email. I can withdraw permission at any time. (Optional)'}
 
 
 @api_router.post("/download-requests", response_model=DownloadRequestOut, status_code=201)
@@ -260,21 +309,39 @@ async def request_template(payload: DownloadRequestCreate, request: Request):
     ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "unknown").split(",")[0].strip()
     if _rate_limited(ip):
         raise HTTPException(status_code=429, detail="Too many submissions. Please try again later.")
+    sample = payload.asset == 'sample_acta'
+    if sample and not SAMPLE_PATH.is_file():
+        raise HTTPException(status_code=503, detail='Sample temporarily unavailable')
     now = datetime.now(timezone.utc)
-    lead = Lead(
-        email=str(payload.email).lower(), language=payload.language,
-        lead_type="download_request", source="template_request",
-        document_request=payload.document_request, consent=True,
-        marketing_opt_in=payload.marketing_opt_in,
-        consent_version=CONSENT_VERSION, consented_at=now,
-        consent_text=CONSENT_TEXT[payload.language],
-        marketing_consent_text=MARKETING_TEXT[payload.language],
-        source_path=payload.source_path,
-        utm={"intent": "download_request", "document": payload.document_request, "page": payload.source_path},
-    )
-    doc = lead.model_dump(mode="json")
+    lead = Lead(email=str(payload.email).lower(), language=payload.language,
+        lead_type="download_request", source="sample_pdf" if sample else "template_request",
+        document_request=payload.document_request, consent=True, marketing_opt_in=payload.marketing_opt_in,
+        consent_version='sample-pdf-v2' if sample else CONSENT_VERSION, consented_at=now,
+        consent_text=SAMPLE_PROCESSING[payload.language] if sample else CONSENT_TEXT[payload.language],
+        marketing_consent_text=SAMPLE_MARKETING[payload.language] if sample else MARKETING_TEXT[payload.language],
+        source_path=payload.source_path, utm={"intent":"sample_pdf" if sample else "download_request","document":payload.document_request,"page":payload.source_path})
+    doc=lead.model_dump(mode='json')
+    token=secrets.token_urlsafe(32) if sample else None
+    expires=now+timedelta(hours=24) if sample else None
+    if sample:
+        doc.update(download_token_hash=hashlib.sha256(token.encode()).hexdigest(),download_expires_at=expires.isoformat(),asset='sample_acta')
     await db.leads.insert_one(doc)
-    return DownloadRequestOut(id=lead.id)
+    return DownloadRequestOut(id=lead.id,download_available=sample,download_url=f'/api/downloads/{token}' if sample else None,expires_at=expires)
+
+
+@api_router.get('/downloads/{token}')
+async def download_sample(token: str):
+    if len(token)>100:
+        raise HTTPException(status_code=404,detail='Download not found')
+    lead=await db.leads.find_one({'download_token_hash':hashlib.sha256(token.encode()).hexdigest()})
+    if not lead:
+        raise HTTPException(status_code=404,detail='Download not found')
+    if datetime.fromisoformat(lead['download_expires_at'])<datetime.now(timezone.utc):
+        raise HTTPException(status_code=410,detail='Download link expired')
+    if not SAMPLE_PATH.is_file():
+        raise HTTPException(status_code=503,detail='Sample temporarily unavailable')
+    await db.leads.update_one({'id':lead['id']},{'$inc':{'download_count':1},'$set':{'last_downloaded_at':datetime.now(timezone.utc).isoformat()}})
+    return FileResponse(SAMPLE_PATH,media_type='application/pdf',filename='DocuSite-acta-ejemplo.pdf',headers={'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow'})
 
 
 # ----------------------------------------------------------------------------

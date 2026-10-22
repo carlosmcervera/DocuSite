@@ -3,169 +3,400 @@
   <url>
     <loc>https://docuobra.preview.emergentagent.com/es</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/en</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/es/documentos</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/documents"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/documents</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/documents"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/en/documents</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/documents"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos"/>
   </url>
   <url>
-    <loc>https://docuobra.preview.emergentagent.com/es/documentos/acta-replanteo</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-replanteo"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents/setting-out-minutes"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-replanteo"/>
+    <loc>https://docuobra.preview.emergentagent.com/es/acta-de-replanteo</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-replanteo"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-replanteig"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/setting-out-record"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-replanteo"/>
   </url>
   <url>
-    <loc>https://docuobra.preview.emergentagent.com/en/documents/setting-out-minutes</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-replanteo"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents/setting-out-minutes"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-replanteo"/>
+    <loc>https://docuobra.preview.emergentagent.com/ca/acta-de-replanteig</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-replanteo"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-replanteig"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/setting-out-record"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-replanteo"/>
   </url>
   <url>
-    <loc>https://docuobra.preview.emergentagent.com/es/documentos/acta-visita-obra</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-visita-obra"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents/site-visit-minutes"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-visita-obra"/>
+    <loc>https://docuobra.preview.emergentagent.com/en/setting-out-record</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-replanteo"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-replanteig"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/setting-out-record"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-replanteo"/>
   </url>
   <url>
-    <loc>https://docuobra.preview.emergentagent.com/en/documents/site-visit-minutes</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-visita-obra"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents/site-visit-minutes"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-visita-obra"/>
+    <loc>https://docuobra.preview.emergentagent.com/es/acta-de-visita-de-obra</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-visita-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-visita-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/site-visit-minutes"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-visita-de-obra"/>
   </url>
   <url>
-    <loc>https://docuobra.preview.emergentagent.com/es/documentos/informe-visita-reportaje-fotografico</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos/informe-visita-reportaje-fotografico"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents/site-visit-report-photo-log"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos/informe-visita-reportaje-fotografico"/>
+    <loc>https://docuobra.preview.emergentagent.com/ca/acta-de-visita-obra</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-visita-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-visita-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/site-visit-minutes"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-visita-de-obra"/>
   </url>
   <url>
-    <loc>https://docuobra.preview.emergentagent.com/en/documents/site-visit-report-photo-log</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos/informe-visita-reportaje-fotografico"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents/site-visit-report-photo-log"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos/informe-visita-reportaje-fotografico"/>
+    <loc>https://docuobra.preview.emergentagent.com/en/site-visit-minutes</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-visita-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-visita-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/site-visit-minutes"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-visita-de-obra"/>
   </url>
   <url>
-    <loc>https://docuobra.preview.emergentagent.com/es/documentos/acta-repasos-checklist</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-repasos-checklist"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents/punch-list-checklist-minutes"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-repasos-checklist"/>
+    <loc>https://docuobra.preview.emergentagent.com/es/informe-fotografico-de-obra</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/informe-fotografico-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/informe-fotografic-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/construction-photo-report"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/informe-fotografico-de-obra"/>
   </url>
   <url>
-    <loc>https://docuobra.preview.emergentagent.com/en/documents/punch-list-checklist-minutes</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-repasos-checklist"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents/punch-list-checklist-minutes"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-repasos-checklist"/>
+    <loc>https://docuobra.preview.emergentagent.com/ca/informe-fotografic-obra</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/informe-fotografico-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/informe-fotografic-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/construction-photo-report"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/informe-fotografico-de-obra"/>
   </url>
   <url>
-    <loc>https://docuobra.preview.emergentagent.com/es/documentos/acta-fin-obra</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-fin-obra"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents/project-closeout-minutes"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-fin-obra"/>
+    <loc>https://docuobra.preview.emergentagent.com/en/construction-photo-report</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/informe-fotografico-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/informe-fotografic-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/construction-photo-report"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/informe-fotografico-de-obra"/>
   </url>
   <url>
-    <loc>https://docuobra.preview.emergentagent.com/en/documents/project-closeout-minutes</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-fin-obra"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/documents/project-closeout-minutes"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/documentos/acta-fin-obra"/>
+    <loc>https://docuobra.preview.emergentagent.com/es/acta-de-repasos</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-repasos"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-repassos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/snagging-record"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-repasos"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/acta-de-repassos</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-repasos"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-repassos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/snagging-record"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-repasos"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/en/snagging-record</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-repasos"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-repassos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/snagging-record"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-repasos"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/es/acta-de-fin-de-obra</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-fin-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-final-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/project-closeout-record"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-fin-de-obra"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/acta-de-final-obra</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-fin-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-final-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/project-closeout-record"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-fin-de-obra"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/en/project-closeout-record</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/acta-de-fin-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/acta-de-final-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/project-closeout-record"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/acta-de-fin-de-obra"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/es/como-funciona</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/como-funciona"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/com-funciona"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/how-it-works"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/como-funciona"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/com-funciona</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/como-funciona"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/com-funciona"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/how-it-works"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/como-funciona"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/en/how-it-works</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/como-funciona"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/com-funciona"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/how-it-works"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/como-funciona"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/es/beneficios</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/beneficios"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/beneficis"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/benefits"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/beneficios"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/beneficis</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/beneficios"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/beneficis"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/benefits"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/beneficios"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/en/benefits</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/beneficios"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/beneficis"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/benefits"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/beneficios"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/es/roi</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/roi"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/roi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/roi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/roi"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/roi</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/roi"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/roi"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/roi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/roi"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/en/roi</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/roi"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/roi"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/roi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/roi"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/es/casos-de-uso</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/casos-de-uso"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/casos-us"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/use-cases"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/casos-de-uso"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/casos-us</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/casos-de-uso"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/casos-us"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/use-cases"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/casos-de-uso"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/en/use-cases</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/casos-de-uso"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/casos-us"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/use-cases"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/casos-de-uso"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/es/precios</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/precios"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/preus"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/precios"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/preus</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/precios"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/preus"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/pricing"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/precios"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/en/pricing</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/precios"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/preus"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/pricing"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/precios"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/es/faq</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/faq"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/faq"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/faq</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/faq"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/faq"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/faq"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/faq"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/en/faq</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/faq"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/faq"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/faq"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/faq"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/es/contacto</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/contacto"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/contacte"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/contacto"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/contacte</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/contacto"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/contacte"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/contacto"/>
   </url>
   <url>
     <loc>https://docuobra.preview.emergentagent.com/en/contact</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/contacto"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/contacte"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/contacto"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/es/privacidad</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/privacitat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/privacidad"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/privacitat</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/privacitat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/privacidad"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/privacitat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/privacidad"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/es/aviso-legal</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/aviso-legal"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/avis-legal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/legal-notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/aviso-legal"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/avis-legal</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/aviso-legal"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/avis-legal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/legal-notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/aviso-legal"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/en/legal-notice</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/aviso-legal"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/avis-legal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/legal-notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/aviso-legal"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/es/direccion-de-obra</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/direccion-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/direccio-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/site-supervision"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/direccion-de-obra"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/direccio-obra</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/direccion-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/direccio-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/site-supervision"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/direccion-de-obra"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/en/site-supervision</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/direccion-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/direccio-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/site-supervision"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/direccion-de-obra"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/es/direccion-de-ejecucion-de-obra</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/direccion-de-ejecucion-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/direccio-execucio-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/execution-supervision"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/direccion-de-ejecucion-de-obra"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/direccio-execucio-obra</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/direccion-de-ejecucion-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/direccio-execucio-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/execution-supervision"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/direccion-de-ejecucion-de-obra"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/en/execution-supervision</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/direccion-de-ejecucion-de-obra"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/direccio-execucio-obra"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/execution-supervision"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/direccion-de-ejecucion-de-obra"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/es/cookies</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/cookies"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/galetes"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/cookies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/cookies"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/ca/galetes</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/cookies"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/galetes"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/cookies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/cookies"/>
+  </url>
+  <url>
+    <loc>https://docuobra.preview.emergentagent.com/en/cookies</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://docuobra.preview.emergentagent.com/es/cookies"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://docuobra.preview.emergentagent.com/ca/galetes"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docuobra.preview.emergentagent.com/en/cookies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docuobra.preview.emergentagent.com/es/cookies"/>
   </url>
 </urlset>

@@ -1,5 +1,8 @@
+import { catalanDocs } from './catalanDocs';
+
 // Each document answers a distinct search intent; examples are explicitly fictional.
 export const documentContent = {
+  ca:catalanDocs,
   es: {
     setting: {
       name: "Acta de replanteo", short: "Empieza con los puntos de partida claros.", stage: "Antes de comenzar", audience: "Para la dirección facultativa y el equipo de obra",
